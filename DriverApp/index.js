@@ -1,1 +1,1 @@
-// hiiiiiiiiiiiiiii
+import "expo-router/entry";
