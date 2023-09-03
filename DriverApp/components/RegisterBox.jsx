@@ -1,0 +1,131 @@
+import {
+  Input,
+  InputField,
+  Button,
+  ButtonText,
+  Link,
+  LinkText,
+} from "@gluestack-ui/themed";
+import styles from "./styles";
+import { View, Text } from "react-native";
+
+const RegisterBox = ({ navigation }) => {
+  return (
+    <View style={styles.container2}>
+      <View style={{ marginTop: "5%", marginLeft: "5%" }}>
+        <View style={{ flexDirection: "row" }}>
+          <Text size="lg">FIRST NAME</Text>
+
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+        <View style={{ flexDirection: "row" }}>
+          <Text size="lg">LAST NAME </Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text size="lg">NIC</Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text size="lg">ADDRESS</Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text size="lg">MOBILE</Text>
+
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ fontWeight: "bold" }}>
+            <Text size="lg">PASSWORD</Text>
+          </Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+      </View>
+
+      <View
+        style={{
+          marginTop: "5%",
+        }}
+      >
+        <Button
+          style={styles.button}
+          size="md"
+          variant="solid"
+          action="primary"
+          isDisabled={false}
+          isFocusVisible={false}
+          onPress={() => navigation.navigate("ForgotPassword")}
+        >
+          <ButtonText style={styles.button}>Sign Up</ButtonText>
+        </Button>
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <Text size="lg">Already have an account? </Text>
+        <Link href="https://gluestack.io/" isExternal>
+          <LinkText size="sm">Sign In</LinkText>
+        </Link>
+      </View>
+    </View>
+  );
+};
+
+export default RegisterBox;

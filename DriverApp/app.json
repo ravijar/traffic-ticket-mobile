@@ -7,7 +7,7 @@
     "plugins": [
       "expo-router"
     ],
-    "name": "TrafficTicket",
-    "slug": "TrafficTicket"
+    "name": "DriverApp",
+    "slug": "DriverApp"
   }
 }

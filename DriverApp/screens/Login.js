@@ -6,7 +6,8 @@ import Loginbox from '../components/home/loginbox';
 import styles from '../components/styles';
 
 
-const Home = () => {
+
+const Login = ({navigation}) => {
   return (
     <GluestackUIProvider config={config.theme}>
       
@@ -20,7 +21,7 @@ const Home = () => {
     />
 
     <Text style={styles.text2}>Please sign in to your existing account</Text>
-      <Loginbox/>
+      <Loginbox navigation={navigation}/>
       
     </SafeAreaView>
     
@@ -30,4 +31,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Login
