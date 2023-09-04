@@ -11,7 +11,7 @@ import { View, Text } from "react-native";
 
 const PasswordChangeBox = ({ navigation }) => {
   return (
-    <View style={styles.container2}>
+    <View style={styles.registerContainer}>
       <View style={{ marginTop: "5%" }}>
         <Input
           style={styles.input}

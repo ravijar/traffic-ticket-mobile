@@ -11,11 +11,12 @@ import { View, Text } from "react-native";
 
 const RegisterBox = ({ navigation }) => {
   return (
-    <View style={styles.container2}>
+    <View style={styles.registerContainer}>
       <View style={{ marginTop: "5%", marginLeft: "5%" }}>
         <View style={{ flexDirection: "row" }}>
-          <Text size="lg">FIRST NAME</Text>
-
+          <Text style={{ fontWeight: "bold" }}>
+            <Text size="lg">FIRST NAME</Text>
+          </Text>
           <Input
             style={styles.input2}
             variant="outline"
@@ -27,65 +28,72 @@ const RegisterBox = ({ navigation }) => {
             <InputField placeholder="" />
           </Input>
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <Text size="lg">LAST NAME </Text>
-          <Input
-            style={styles.input2}
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputField placeholder="" />
-          </Input>
-        </View>
-
-        <View style={{ flexDirection: "row" }}>
-          <Text size="lg">NIC</Text>
-          <Input
-            style={styles.input2}
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputField placeholder="" />
-          </Input>
-        </View>
-
-        <View style={{ flexDirection: "row" }}>
-          <Text size="lg">ADDRESS</Text>
-          <Input
-            style={styles.input2}
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputField placeholder="" />
-          </Input>
-        </View>
-
-        <View style={{ flexDirection: "row" }}>
-          <Text size="lg">MOBILE</Text>
-
-          <Input
-            style={styles.input2}
-            variant="outline"
-            size="md"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputField placeholder="" />
-          </Input>
-        </View>
-
         <View style={{ flexDirection: "row" }}>
           <Text style={{ fontWeight: "bold" }}>
+            <Text size="lg">LAST NAME </Text>
+          </Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ fontWeight: "bold", marginRight: 65 }}>
+            <Text size="lg">NIC</Text>
+          </Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ fontWeight: "bold", marginRight: 20 }}>
+            <Text size="lg">ADDRESS</Text>
+          </Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ fontWeight: "bold", marginRight: 35 }}>
+            <Text size="lg">MOBILE</Text>
+          </Text>
+          <Input
+            style={styles.input2}
+            variant="outline"
+            size="md"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+          >
+            <InputField placeholder="" />
+          </Input>
+        </View>
+
+        <View style={{ flexDirection: "row" }}>
+          <Text style={{ fontWeight: "bold", marginRight: 8 }}>
             <Text size="lg">PASSWORD</Text>
           </Text>
           <Input

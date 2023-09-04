@@ -1,10 +1,19 @@
 import styles from "./styles";
-import { View, Text, Image, Pressable, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  Pressable,
+  TouchableOpacity,
+  SafeAreaView,
+} from "react-native";
 
 const Head = ({ navigation, topic }) => {
   return (
-    <View style={styles.header}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
+    <SafeAreaView style={styles.header}>
+      <View
+        style={{ flexDirection: "row", alignItems: "center", marginTop: "5%" }}
+      >
         <TouchableOpacity onPress={() => navigation.navigate("Dashboard")}>
           <Image source={require("../assets/back.jpg")} style={styles.back} />
         </TouchableOpacity>
@@ -18,7 +27,7 @@ const Head = ({ navigation, topic }) => {
           />
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

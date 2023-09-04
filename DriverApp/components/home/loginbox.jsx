@@ -42,7 +42,7 @@ const Loginbox = ({ navigation }) => {
         action="primary"
         isDisabled={false}
         isFocusVisible={false}
-        onPress={() => navigation.navigate("ForgotPassword")}
+        onPress={() => navigation.navigate("Dashboard")}
       >
         <ButtonText style={styles.button}>Sign In </ButtonText>
       </Button>

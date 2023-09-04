@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   header: {
     flex: 1,
     width: '100%',
-    maxHeight: 85,
+    maxHeight: 100,
     backgroundColor: COLORS.PRIMARY,
     //justifyContent: 'center', // Vertically center content
     alignItems: 'center',     // Horizontally center content
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
       backgroundColor: COLORS.GRAY,
       //justifyContent: 'center', // Vertically center content
       alignItems: 'center',     // Horizontally center content
-      marginBottom: '10%'
+      marginBottom: '10%',
+      marginTop: '5%'
     },
     text1: {
       color: 'white',
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
   },
-  button2: {
+  button2: {    //big button
       
     backgroundColor: COLORS.PRIMARY,
     flex: 1,
@@ -139,26 +140,33 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 35,
     fontWeight: 'bold',
+    marginLeft:'10%',
+    marginRight:'10%'
+    
   },
 
   footer: {
     width: 180,
     height: 30,
     marginTop: '15%', 
+    marginBottom:'5%'
     
   },
+  
+  
+  
   back: {
     width: 17,
     height: 30.6,
-    marginTop: '9%', 
-    marginRight:'20%'
+    marginTop: '40%', 
+    marginLeft:'10%'
     
   },
   logout: {
     width: 40,
     height: 40,
-    marginTop: '9%', 
-    marginLeft:'20%'
+    marginTop: '30%', 
+    marginRight:'10%'
     
 
     
@@ -184,6 +192,30 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
+  
+  formText: {     //text used for forms
+    color: COLORS.BLACK,
+    fontSize: 20,
+    marginTop: '2%',
+    fontWeight: 'bold',
+    
+  },
+  registerContainer: {
+    flex: 1,
+    width: '75%',
+    // maxHeight: 320,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+    backgroundColor: COLORS.GRAY,
+    //justifyContent: 'center', // Vertically center content
+    alignItems: 'center',     // Horizontally center content
+    marginBottom: '5%',
+   
+  },
+  
+
   
 
 });

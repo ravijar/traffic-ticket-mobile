@@ -40,6 +40,7 @@ const Dashboard = ({navigation}) => {
                 </Text>
   </TouchableOpacity>
 
+
   <TouchableOpacity onPress={()=>navigation.navigate("Suggestions")} style={styles.button2}>
   <Text style={{fontSize: 20, color: 'white',textAlign: 'center', marginTop:'13%',  }}>
                     SUGGESTIONS/
@@ -48,7 +49,7 @@ const Dashboard = ({navigation}) => {
                     COMPLAINTS
                 </Text>
   </TouchableOpacity>
-    
+ 
 
     <Footer navigation={navigation}/>
   
