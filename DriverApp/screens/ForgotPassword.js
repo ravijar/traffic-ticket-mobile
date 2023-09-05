@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, Text,ScrollView, SafeAreaView, Image} from 'react-native';
+import {View, Text,ScrollView, SafeAreaView, Image,KeyboardAvoidingView} from 'react-native';
 
 import { Input, InputField, Button, ButtonText,Link,LinkText} from "@gluestack-ui/themed";
 
@@ -20,7 +20,10 @@ const ForgotPassword = ({navigation}) => {
       style = {styles.image}
     />
 
-    <View style={{marginTop:'20%'}}>
+<ScrollView  style={{width:'100%'}} contentContainerStyle={styles.scrollViewContent}>
+  <KeyboardAvoidingView>
+    <View style={{marginTop:'20%',width:'100%'}}>
+    
     <Input
         style={styles.input}
         variant="outline"
@@ -31,9 +34,12 @@ const ForgotPassword = ({navigation}) => {
       >
         <InputField placeholder="NIC Number" />
       </Input>
-
+      
       </View>
-      <View style={{marginBottom:'20%', marginTop:'20%'}}>
+      
+
+      <View style={{marginBottom:'20%', marginTop:'20%',alignItems:'center'}}>
+        
       <Button
         style={styles.button}
         size="md"
@@ -41,16 +47,23 @@ const ForgotPassword = ({navigation}) => {
         action="primary"
         isDisabled={false}
         isFocusVisible={false}
-        
+        onPress={()=>navigation.navigate('Login')}
       >
-        <ButtonText style={styles.button}>Send Message </ButtonText>
+        <ButtonText style={styles.button} >Send Message </ButtonText>
       </Button>
+      
+      
 
-      <Link style={{marginTop:'5%', alignItems:'center'}}>
+      
+
+      <Link onPress={() => navigation.navigate("Login")} style={{marginTop:'5%', alignItems:'center'}}>
         <LinkText size="sm">Sign In</LinkText>
       </Link>
 
       </View>
+
+      </KeyboardAvoidingView>
+      </ScrollView>
     </SafeAreaView>
     
     </GluestackUIProvider>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable,Button,ButtonText } from '@gluestack-ui/themed'
-import { View,SafeAreaView,Text, TouchableOpacity,Image } from 'react-native'
+import { View,SafeAreaView,Text, TouchableOpacity,Image, ScrollView } from 'react-native'
 import {GluestackUIProvider,config} from "@gluestack-ui/themed";
 import styles from '../components/styles';
 import Head from '../components/Head';
@@ -15,12 +15,13 @@ const Dashboard = ({navigation}) => {
 
       
       <SafeAreaView style={styles.containerWhite}>
-
+      
       <Head navigation={navigation} topic={"DASHBOARD"}/>
+      <ScrollView  style={{width:'100%'}} contentContainerStyle={styles.scrollViewContent}>
   <TouchableOpacity onPress={()=>navigation.navigate("PendingFines")} style={styles.button2}>
     <View >
     
-
+    
   <Text style={{fontSize: 20, color: 'white',textAlign: 'center', marginTop:'13%',  }}>
                     PENDING FINES
                 </Text>
@@ -49,12 +50,12 @@ const Dashboard = ({navigation}) => {
                     COMPLAINTS
                 </Text>
   </TouchableOpacity>
- 
+  </ScrollView>
 
     <Footer navigation={navigation}/>
   
 
-
+    
 </SafeAreaView>
 
    

@@ -16,10 +16,11 @@ const Register = ({navigation}) => {
           source={require('../assets/traffic-ticket-high-resolution-logo-white-on-transparent-background.png')}
           style = {styles.image}
         />
-    
+    <ScrollView  style={{width:'100%'}} contentContainerStyle={styles.scrollViewContent}>
         <Text style={styles.text2}>Register your new account</Text>
+        
           <RegisterBox navigation={navigation}/>
-          
+          </ScrollView>
         </SafeAreaView>
         
         </GluestackUIProvider>

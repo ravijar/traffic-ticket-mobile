@@ -16,10 +16,11 @@ const ChangePassword = ({navigation}) => {
           source={require('../assets/traffic-ticket-high-resolution-logo-white-on-transparent-background.png')}
           style = {styles.image}
         />
-    
+    <ScrollView  style={{width:'100%'}} contentContainerStyle={styles.scrollViewContent}>
         <Text style={styles.text2}>Change your existing password</Text>
+        
           <PasswordChangeBox navigation={navigation}/>
-          
+          </ScrollView>
         </SafeAreaView>
         
         </GluestackUIProvider>

@@ -121,14 +121,14 @@ const RegisterBox = ({ navigation }) => {
           action="primary"
           isDisabled={false}
           isFocusVisible={false}
-          onPress={() => navigation.navigate("ForgotPassword")}
+          onPress={() => navigation.navigate("Login")}
         >
           <ButtonText style={styles.button}>Sign Up</ButtonText>
         </Button>
       </View>
       <View style={{ flexDirection: "row" }}>
         <Text size="lg">Already have an account? </Text>
-        <Link href="https://gluestack.io/" isExternal>
+        <Link onPress={() => navigation.navigate("Login")}>
           <LinkText size="sm">Sign In</LinkText>
         </Link>
       </View>

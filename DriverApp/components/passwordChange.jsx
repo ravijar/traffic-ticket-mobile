@@ -63,6 +63,7 @@ const PasswordChangeBox = ({ navigation }) => {
           flexDirection: "row",
           justifyContent: "space-between",
           marginTop: "5%",
+          marginBottom: "5%",
         }}
       >
         <Button
@@ -72,7 +73,7 @@ const PasswordChangeBox = ({ navigation }) => {
           action="primary"
           isDisabled={false}
           isFocusVisible={false}
-          onPress={() => navigation.navigate("ForgotPassword")}
+          onPress={() => navigation.navigate("Login")}
         >
           <ButtonText style={styles.button}>Back</ButtonText>
         </Button>
@@ -85,7 +86,7 @@ const PasswordChangeBox = ({ navigation }) => {
             action="primary"
             isDisabled={false}
             isFocusVisible={false}
-            onPress={() => navigation.navigate("ForgotPassword")}
+            onPress={() => navigation.navigate("Login")}
           >
             <ButtonText style={styles.button}>Change</ButtonText>
           </Button>

@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   container2: {
       flex: 1,
       width: '75%',
-      // maxHeight: 320,
+      // maxHeight: '85%',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
       borderBottomLeftRadius: 30,
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
       backgroundColor: COLORS.GRAY,
       //justifyContent: 'center', // Vertically center content
       alignItems: 'center',     // Horizontally center content
-      marginBottom: '10%',
-      marginTop: '5%'
+      // marginBottom: '10%',
+      marginTop: '10%'
     },
     text1: {
       color: 'white',
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.PRIMARY,
     flex: 1,
       width: '80%',
-      maxHeight: '18%',
+      maxHeight: '30%',
       alignItems:'center',
        // Vertically center content
       alignItems: 'center',     // Horizontally center content
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   footer: {
     width: 180,
     height: 30,
-    marginTop: '15%', 
+    marginTop: '5%', 
     marginBottom:'5%'
     
   },
@@ -215,6 +215,12 @@ const styles = StyleSheet.create({
    
   },
   
+  scrollViewContent: {   //for scrollview
+    flexGrow: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
 
   
 

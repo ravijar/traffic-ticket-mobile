@@ -49,16 +49,16 @@ const Loginbox = ({ navigation }) => {
 
       <View style={{ flexDirection: "row" }}>
         <Text size="lg">Don't have an account? </Text>
-        <Link href="https://gluestack.io/" isExternal>
+        <Link onPress={() => navigation.navigate("Register")}>
           <LinkText size="sm">Sign Up</LinkText>
         </Link>
       </View>
 
-      <Link href="https://gluestack.io/" isExternal>
+      <Link onPress={() => navigation.navigate("ForgotPassword")}>
         <LinkText size="sm">Forgot Password</LinkText>
       </Link>
 
-      <Link href="https://gluestack.io/" isExternal>
+      <Link onPress={() => navigation.navigate("ChangePassword")}>
         <LinkText size="sm">Change Password</LinkText>
       </Link>
       {/* </View> */}

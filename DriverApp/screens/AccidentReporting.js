@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from '../components/Head'
-import { SafeAreaView ,View, Text, TextInput} from 'react-native'
+import { SafeAreaView ,View, Text, TextInput,ScrollView} from 'react-native'
 import styles from '../components/styles';
 import Footer from '../components/Footer';
 import Topic from '../components/Topic';
@@ -24,14 +24,18 @@ import {GluestackUIProvider,config} from "@gluestack-ui/themed";
   return (
     <GluestackUIProvider config={config.theme}>
     <SafeAreaView style={styles.containerWhite}>
+      
     <Head navigation={navigation} topic={"REPORTING"}/>
+    <ScrollView  style={{width:'100%'}} contentContainerStyle={styles.scrollViewContent}>
     <Topic navigation={navigation} topic={"ACCIDENT REPORTING"}/>
 
   {/* hora code */}
 
+  
   <View style={styles.container2}>
-    
+  
         <Text style={styles.formText}>Place:</Text>
+        
         <Input
             style={styles.input2}
             variant="outline"
@@ -112,9 +116,11 @@ import {GluestackUIProvider,config} from "@gluestack-ui/themed";
         >
           <ButtonText style={styles.button}>Sign Up</ButtonText>
         </Button>
-      </View>
+       
       </View>
       
+      </View>
+      </ScrollView>
 
       {/* //hora code */}
 

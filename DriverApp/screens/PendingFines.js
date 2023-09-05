@@ -1,10 +1,11 @@
 import React from 'react'
 import Head from '../components/Head'
 import Footer from '../components/Footer';
-import { SafeAreaView,View, Text } from 'react-native';
+import { SafeAreaView,View, Text,ScrollView } from 'react-native';
 import styles from '../components/styles';
 import Topic from '../components/Topic';
 import { Table, Row, Rows } from 'react-native-table-component';
+import { GluestackUIProvider,config } from '@gluestack-ui/themed';
 
 const PendingFines = ({navigation}) => {
   const header = ['Fine ID', 'Vehicle No', 'Date', 'Time','Type','Amount','Pay']
@@ -15,7 +16,7 @@ const PendingFines = ({navigation}) => {
 
     
   const tableStyles = {
-    tableWrapper: { width: '95%', marginTop: '10%', marginBottom: '100%' },
+    tableWrapper: { width: '95%', marginTop: '10%' },
     header: { backgroundColor: '#E4F6F5', height: 40 },
     row: { height: 40 },
     text: { textAlign: 'center', fontSize: 8 }, // Adjust font size as needed
@@ -23,8 +24,10 @@ const PendingFines = ({navigation}) => {
     rows: { height: 40 },
   };
   return (
+    <GluestackUIProvider config={config.theme}>
     <SafeAreaView style={styles.containerWhite}>
     <Head navigation={navigation} topic={"PENDING FINES"}/>
+    <ScrollView  style={{width:'100%'}} contentContainerStyle={styles.scrollViewContent} >
     <Topic navigation={navigation} topic={"PENDING FINES"}/>
     <View style={tableStyles.tableWrapper}>
             
@@ -35,8 +38,11 @@ const PendingFines = ({navigation}) => {
             </Table>
         </View>
     
+        </ScrollView>
     <Footer navigation={navigation}/>
+    
     </SafeAreaView>
+    </GluestackUIProvider>
   )
 }
 

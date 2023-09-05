@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Dashboard">
+      <Stack.Navigator initialRouteName="AccidentReporting">
 
       <Stack.Screen 
         name="Welcome" 
