@@ -1,59 +1,69 @@
-import {View, Text, TextInput, Pressable } from 'react-native';
+import {View, Text, TextInput, Pressable,KeyboardAvoidingView,ScrollView,Dimensions,Platform } from 'react-native';
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
 import COLORS from '../constants/colors';
 import Button from '../components/Button';
-import Navigation from '../Navigation';
+
+const {width, height} = Dimensions.get('screen');
+
 const ForgotPassword = ({navigation}) => {
+    
     return (
+    <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}
+    >
+    <ScrollView style={{flex:1, backgroundColor:COLORS.PRIMARY}} bounces={false} >
         
-        <View style={styles.container}>
-
+        <View style={styles.container1}>
             <Text style={styles.text1}>Password Reset</Text>
-            <Text style={styles.text2}>Request</Text>
-
+            <Text style={styles.text1}>Request</Text>
+        </View>
+            
+        <View style={styles.container2}>
             <Image
                 source={require('../assets/logo2.png')}
                 style = {styles.image}
             />
+        </View>
 
-            
-
-           
-            
-
+        <View style={styles.container4}>   
             <TextInput
                 style={styles.input}
                 placeholder="User ID"
                 placeholderTextColor="black"
             />
-
+        </View>
+           
+        <View style={styles.container3}>
             <Text style={styles.text3}>This Process May Take Some Time...</Text>
+        </View>
 
+
+        <View style={styles.container5}>
             <Button
                 title="Request"
-                filled 
-                color="red"
-                backgroundColor= "#155E75"
-                boarderColor= "#155E75"
-                fontSize={12}
-                style={{marginTop: 60,marginBottom: 10,width: 90 ,fontSize: 40}}
-
+                filled
+                fontSize={height*0.015}
+                style={{width: height*0.1 }}
             />
+        </View>
 
+        <View style={styles.container6}>
             <Pressable 
             onPress={() => navigation.navigate("Login")}
             >
-            <Text style={{fontSize: 12, color: 'white', textDecorationLine: 'underline', marginTop:45,  marginBottom: 10}}
+            <Text style={{fontSize:height*0.02 , color: 'white', textDecorationLine: 'underline'}}
             >
                 Sign In
             </Text>
             </Pressable>
-            
-
-
         </View>
 
+
+        
+    </ScrollView>
+    </KeyboardAvoidingView>
 
             
         
@@ -63,49 +73,102 @@ const ForgotPassword = ({navigation}) => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: COLORS.PRIMARY,
-      //justifyContent: 'center', // Vertically center content
-      alignItems: 'center',     // Horizontally center content
+        flex: 1,
+        backgroundColor: COLORS.PRIMARY,
+      },
+
+    container1: {
+        height : height * 0.1,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center',     // Horizontally center content
+        marginTop : 100,
+        marginBottom : '10%',
     },
+
+    container2: {
+        height : height * 0.25,
+        width: '100%',
+        borderRadius: 30,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center',     // Horizontally center content
+        bottom : '0%',
+    },
+    container4: {  
+        width: '70%',
+        height: height * 0.1,
+        borderRadius: 30,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center',     // Horizontally center content
+        marginLeft : '15%',
+        marginTop : height * 0.02,
+      },
+      container3: {
+        height : height * 0.05,
+        width: '100%',
+        borderRadius: 30,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center',     // Horizontally center content
+        
+        
+    },
+    container5: {
+        height : height * 0.1,
+        width: '100%',
+        borderRadius: 30,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center',     // Horizontally center content
+        marginTop : height * 0.03,
+        
+    },
+    container6: {
+        height : height * 0.1,
+        width: '100%',
+        borderRadius: 30,
+        backgroundColor: 'transparent',
+        justifyContent: 'center', // Vertically center content
+        alignItems: 'center',     // Horizontally center content
+        marginTop : height * 0.03,
+        
+    },
+
    
     text1: {
       color: 'white',
-      fontSize: 40,
-      marginTop: 100,
+      fontSize: 40,  
     },
-    text2: {
-        color: 'white',
-        fontSize: 40,
-        marginTop: 10,
-    },
+    // text2: {
+    //     color: 'white',
+    //     fontSize: 40,
+    // },
     text3: {
         color: 'white',
-        fontSize: 12,
-        marginTop: 20,
+        fontSize: height * 0.015,
+        
     },
 
     image: {
-        width: 200,
-        height: 200,
-        marginTop: 60,
-        marginBottom: 50,
+        width: '75%',
+        height: '75%',
+        marginTop: '15%',
+        marginBottom: '12%',
+        resizeMode: 'contain',
     },
-    image2: {
-        width: 150,
-        height: 25,
-        marginTop: 70,
-    },
+
     input: {
         width: '70%',
-        height: 40,
+        maxWidth : 280,
+        height: '40%',
+        maxHeight : 38,
         backgroundColor: 'white',
         borderRadius: 20,
         paddingHorizontal: 10,
-        marginBottom: 10,
-        marginTop: 40,
-        
-      },
+
+    },
 
   });
 

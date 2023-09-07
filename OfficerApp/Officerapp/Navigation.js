@@ -3,7 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 //import LoginScreen from './screens/Login'; // Create this file later
-import {Login, Signup, Welcome, ForgotPassword, ChangePassword, DashBoard} from './screens'; // Create these files later
+import {Login, Signup, Welcome, ForgotPassword, ChangePassword, DashBoard, AddNewFine, VehicleDetails,DriverFineHistory,Message, CheckS} from './screens'; // Create these files later
 const Stack = createStackNavigator();
 
 const Navigation = () => {
@@ -44,6 +44,36 @@ const Navigation = () => {
         <Stack.Screen 
         name="DashBoard" 
         component={DashBoard}
+        options={{headerShown: false}}
+        />
+
+        <Stack.Screen 
+        name="AddNewFine"
+        component={AddNewFine}
+        options={{headerShown: false}}
+        />
+
+        <Stack.Screen 
+        name="VehicleDetails"
+        component={VehicleDetails}
+        options={{headerShown: false}}
+        />
+        
+        <Stack.Screen 
+        name="CheckS"
+        component={CheckS}
+        options={{headerShown: false}}
+        />
+
+        <Stack.Screen 
+        name="DriverFineHistory"
+        component={DriverFineHistory}
+        options={{headerShown: false}}
+        />
+
+        <Stack.Screen 
+        name="Message"
+        component={Message}
         options={{headerShown: false}}
         />
         

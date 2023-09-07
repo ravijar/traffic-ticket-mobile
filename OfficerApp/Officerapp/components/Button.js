@@ -9,17 +9,11 @@ const Button = (props) => {
     const bgcolor = props.filled ? filledBgColor : outlinedColor;
     const textColor = props.filled ? COLORS.WHITE : COLORS.PRIMARY;
     const fontsize = props.fontSize || 20;
-    const backcolor =  props.backgroundColor;
-    const boarderColor = props.boarderColor;
     const marginRight = props.marginRight || 0;
     return (
         <TouchableOpacity style={{
             ...styles.button,
-            //...{background: backcolor},
-
             ...props.style,
-            backgroundColor:backcolor,
-            borderColor: boarderColor,
             marginRight: marginRight,
             }}
             onPress={props.onPress}
@@ -34,10 +28,8 @@ const Button = (props) => {
 
 const styles = StyleSheet.create({
     button:{
-        paddingBottom: 10,
         paddingVertical: 10,
-        
-        borderWidth: 2,
+        backgroundColor: "#155E75",
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
