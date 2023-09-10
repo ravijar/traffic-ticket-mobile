@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         height : '8%',
         maxWidth: 500,
         maxHeight: 90,
-        backgroundColor: 'red',
+        backgroundColor: 'gray',
         justifyContent: 'center', // Vertically center conten
         alignItems: 'center',     // Horizontally center content
         marginTop: "8%",

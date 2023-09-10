@@ -5,8 +5,10 @@ import COLORS from '../constants/colors';
 import Header from '../components/Header';
 import Footer from '../components/Fotter';
 import Dashboardbox from '../components/Dashboardbox';
-import { AddNewFine, DriverFineHistory, Message, VehicleDetails } from '.';
-
+import AddNewFine from "./AddNewFine"; // Import only the needed components
+import VehicleDetails from "./VehicleDetails";
+import DriverFineHistory from "./DriverFIneHistory";
+import Message from "./Message";
 const DashBoard = ({navigation}) => {
  
 
@@ -14,7 +16,7 @@ const DashBoard = ({navigation}) => {
         
         <View style={styles.container}>
 
-            <Header navigation={navigation} Headername="DASHBOARD" back= "ForgotPassword" />             
+            <Header navigation={navigation} Headername="DASHBOARD" back= "DashBoard" />             
 
             <Dashboardbox name="ADD FINE" navigation={navigation} screenName={AddNewFine} />
             

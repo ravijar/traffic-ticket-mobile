@@ -1,11 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import { TextInput } from "react-native";
 import COLORS from "../constants/colors";
 
 const InputTextCurve = (props) => {
+
+    const [text, setText] = useState(""); // State to store user input
+
     const styles = props.style;
     const placeholder = props.placeholder;
     const secureTextEntry = props.secureTextEntry;
+
+    const handleTextChange = (inputText) => {
+        setText(inputText);
+        props.onChangeText(inputText); // Call the parent component's callback function
+      };
     
     return (
         <TextInput
@@ -15,10 +23,9 @@ const InputTextCurve = (props) => {
             secureTextEntry = {secureTextEntry}
             underlineColor="transparent"
             underlineColorAndroid="transparent"
-            //caretHidden={true} // Hide the cursor
             selectionColor= {COLORS.PRIMARY}// Change the cursor color
-            onFocus={() => {}}
-            onBlur={() => {}}
+            onChangeText={handleTextChange}
+            value={text}
             
             />
     )

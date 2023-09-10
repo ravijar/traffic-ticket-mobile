@@ -6,9 +6,14 @@ import Button from '../components/Button';
 import InputTextCurve from '../components/InputTextCurve';
 
 const {width, height} = Dimensions.get('screen');
-const IsAsith = false;
+
 const Login = ({navigation}) => {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+    const [userId, setUserId] = useState(''); // State to store user ID
+    const [password, setPassword] = useState(''); // State to store password
+    const [CredentialError, setCredentialError] = useState('');
+   
+    const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -24,7 +29,47 @@ const Login = ({navigation}) => {
     };
   }, []);
 
+  const handleSignIn = async() => {
+    try {
+      const response = await fetch('http://192.168.1.101:8000/api/token/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username: userId,
+          password: password,
+        }),
+        
+      });
+
+  
+      if (response.ok) {
+        console.log('response ok')
+        // Successfully authenticated
+        navigation.navigate("DashBoard");
+      } else {
+        // Authentication failed
+        setCredentialError('Incorrect Credentials');
+        // Handle the error, display a message to the user, etc.
+      } }
+    catch (error) {
+        setCredentialError('Error');
+        // Handle the error, display a message to the user, etc.
+      }
     
+    // if (userId === 'Asith' && password === '09876') {
+    //   // Correct username and password, navigate to Dashboard
+    //   navigation.navigate("DashBoard");
+    // } else {
+    //   // Incorrect username or password, display an error message
+    //   setCredentialError('Incorrect Credentials');
+    //   setShowErrors(true);
+    //   setTimeout(() => {setShowErrors(false);} , 2000);
+    // }
+
+  };
+  
     return (
     <View style={{backgroundColor: COLORS.PRIMARY, flex:1, flexDirection:'column'}}  //parent view
     >  
@@ -54,23 +99,28 @@ const Login = ({navigation}) => {
         {/* <View style={styles.container}> */}
         <View style={[isKeyboardVisible ? styles.container4 : styles.container4]}>
             
+            {showErrors && <Text style={{ color: 'red',fontSize: height*0.03}}>{CredentialError}</Text>}
             <InputTextCurve
                 style={styles.input}
                 placeholder="User ID"
+                onChangeText={(text) => setUserId(text)}
+                
             />
+            
+
 
             <InputTextCurve
                 style={styles.input}
                 placeholder="Password"
                 secureTextEntry
+                onChangeText={(text) => setPassword(text)}
             />
-            
             <Button
                 title="Sign In"
                 filled 
-                onPress={() => navigation.navigate("DashBoard")}
+                onPress={handleSignIn}
                 fontSize={12}
-                style={{ width: '24%' ,maxWidth:100,marginTop:'10%' ,maxHeight:50,}}
+                style={{ width: '40%' ,maxWidth:200,marginTop:'20%' ,maxHeight:100,}}
 
             />
             

@@ -29,8 +29,9 @@ const Dropdown = () => {
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 20,
-        paddingVertical: 22,
+        marginTop: 20,
         flex: 1,
+        marginBottom: 50,
     },
     dropdownStyle: {
         backgroundColor: "#fafafa",
@@ -41,13 +42,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     dropdownButton: {
-        backgroundColor: "white", // Red background color
+        backgroundColor: "white", 
         borderWidth: 1,
-        borderColor: "#001F3F", // Red border color
+        borderColor: "#001F3F",
         borderRadius: 20, // Border radius for curved edges
         fontSize: 16,
-        padding: 10,
-        color: "white", // Text color
+        color: "white", 
         width: 250,
         height: 42,
     },

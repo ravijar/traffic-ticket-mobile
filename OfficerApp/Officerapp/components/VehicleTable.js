@@ -24,11 +24,11 @@ const VehicleTable = (props) => {
 	]
 
 	return (
-		<View style={{ marginTop: 200 }}>
+		<View style={{ marginTop: 20 }}>
 			<Text style={{ fontSize: 18 }}>
 				GeeksforGeeks React Native Table</Text>
 			<Table borderStyle={style.table}>
-				<Rows data={data} style={style.text}/>
+				<Rows data={data} textStyle={style.text}/>
 			</Table>
 		</View>
 	);
@@ -37,16 +37,16 @@ const VehicleTable = (props) => {
 const style = StyleSheet.create({
 	table: {
 		width: '90%',
-		marginTop: 30,
 		marginLeft: 20,
 		borderWidth: 2,
-		borderColor: '#c8e1ff',
+		borderColor: 'black',
 
 	},
 	text: {
 		//marginLeft: 5,
 		fontSize: 15,
-		backgroundColor: '#c8e1ff',
+		backgroundColor: 'red',
+		padding: 10,
 	},
 });
 

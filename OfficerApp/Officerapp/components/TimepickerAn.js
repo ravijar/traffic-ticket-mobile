@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SafeAreaView, Text, StyleSheet, View, Pressable } from "react-native";
-
-const Timepicker = () => {
+import COLORS from "../constants/colors";
+const TimepickerAn = () => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("time");
   const [show, setShow] = useState(false);
@@ -15,16 +15,17 @@ const Timepicker = () => {
 
   const handlePress = () => {
     setShow(false); // Dismiss the time picker
-    console.log(date.toLocaleTimeString());
   };
 
   return (
     <Pressable onPress={handlePress} style={styles.container}>
       <View style={styles.row}>
-        <Text style={styles.label}>Time of Offence:</Text>
+      <Text style={styles.Text}>Time of Offence:</Text>
         <Pressable onPress={() => setShow(true)}>
-          <Text style={styles.chooseText}>Choose</Text>
+        <Text style={{color:COLORS.PRIMARY}}> {date.toLocaleTimeString()}</Text>
+
         </Pressable>
+
       </View>
       {show && (
         <SafeAreaView>
@@ -37,7 +38,6 @@ const Timepicker = () => {
           />
         </SafeAreaView>
       )}
-      <Text>selected: {date.toLocaleTimeString()}</Text>
     </Pressable>
     
   );
@@ -46,25 +46,17 @@ const Timepicker = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginTop: 10,
+    marginBottom: 40,
   },
   row: {
     flexDirection: "row",
-    marginTop: 10,
   },
-  label: {
+  Text: {
     fontSize: 15,
     color: "black",
-    textAlign: "center",
-    marginTop: 10,
-    marginRight: 54,
-  },
-  chooseText: {
-    fontSize: 15,
-    color: "black",
-    textAlign: "center",
-    marginTop: 10,
+    textAlign: "left",
+    marginRight: 25,
   },
 });
 
-export default Timepicker;
+export default TimepickerAn;

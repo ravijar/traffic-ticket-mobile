@@ -19,14 +19,7 @@ const Welcome = () => {
 
 
     return (
-        // <LinearGradient
-        //     style = {{
-        //         flex: 1,
-        //     }}
-        //     colors = {[COLORS.A, COLORS.B]}
-        // >
-        //     <Text>hello</Text>
-        // </LinearGradient>
+
         <View style={styles.container}>
 
             <Image
@@ -50,8 +43,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: COLORS.PRIMARY,
-      //justifyContent: 'center', // Vertically center content
-      alignItems: 'center',     // Horizontally center content
+      alignItems: 'center',     
     },
     text: {
       color: 'white',
