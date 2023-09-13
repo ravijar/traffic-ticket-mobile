@@ -1,66 +1,63 @@
 import React from "react";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { SafeAreaView,Button, Text, StyleSheet, View } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import { SafeAreaView, Text, StyleSheet, View } from "react-native";
 import { useState } from "react";
 
-const Datepicker = () => {
-    
-    const [date, setDate] = useState(new Date(1598051730000));
-    const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(true);
+const DatepickerIOS = ({ setSelectedDate }) => {
+  // Initialize date, mode, show states for datepicker component to use it later
+  const [date, setDate] = useState(new Date(1693506600000));
+  const show = true;
+  const mode = "date";
 
-    const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate;
-        setShow(true);
-        setDate(currentDate);
-    };
+  // Function to handle changes in the date/time picker
+  const onChange = (event, selectedDate) => {
+    setDate(selectedDate); // Update the date state with the selected date
+    const currentDate = selectedDate.toLocaleDateString(); // Format the selected date
+    setSelectedDate(currentDate); // Call the setSelectedDate prop to pass the selected date to the parent component
+  };
 
-    return (
+  return (
+    <View style={{ flexDirection: "row", marginTop: 15 }}>
+      <Text style={styles.text}>Date of Offence:</Text>
 
-        <View style={{flexDirection: 'row', marginTop:15}}>
-            
-            <Text style={{fontSize: 15, color: 'black',textAlign: 'center', marginTop:10,marginRight:10  }}>
-                Date of Offence:
-            </Text>
+      <SafeAreaView>
+        {show && ( // Render the DateTimePicker component when 'show' is true
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={date}
+            mode={mode} // Specify the mode for the picker
+            is24Hour={true} // Use a 24-hour format
+            onChange={onChange} // Handle date/time changes using the onChange function
+          />
+        )}
+      </SafeAreaView>
+    </View>
 
-            <SafeAreaView>
-                {show && (
-                     <DateTimePicker
-                    testID="dateTimePicker"
-                    value={date}
-                    mode={mode}
-                    is24Hour={true}
-                    onChange={onChange}
-                    />
-                )}
-            </SafeAreaView>
-
-        </View>
-    
-        //<Text>selected: {date.toLocaleTimeString()}</Text> for function use
-    
-    );
-
+    //<Text>selected: {date.toLocaleTimeString()}</Text> for function use
+  );
 };
 
 const styles = StyleSheet.create({
-
-    TextContainer: {
-        alignItems: 'flex-start', // Align the button to the left
-        //margin: 10, // Add margin as needed
-        marginTop: 20,
-        //backgroundColor: 'lightblue',
-        width: 120,
-        borderRadius: 15,
-    },
-    TextContainer1: {
-        alignItems: 'flex-start', // Align the button to the left
-        //margin: 10, // Add margin as needed
-        marginTop: 10,
-        backgroundColor: 'transparent',
-        width: 250,
-        borderRadius: 15,
-    },
+  TextContainer: {
+    alignItems: "flex-start", // Align the button to the left
+    marginTop: 20,
+    width: 120,
+    borderRadius: 15,
+  },
+  TextContainer1: {
+    alignItems: "flex-start", // Align the button to the left
+    marginTop: 10,
+    backgroundColor: "transparent",
+    width: 250,
+    borderRadius: 15,
+  },
+  text: {
+    fontSize: 15,
+    color: "black",
+    textAlign: "center",
+    marginTop: 10,
+    marginRight: 10,
+  },
 });
 
-export default Datepicker;
+export default DatepickerIOS;

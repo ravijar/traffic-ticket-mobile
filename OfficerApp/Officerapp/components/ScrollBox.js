@@ -2,19 +2,30 @@ import React from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 
 const ScrollBox = (props) => {
+  // Extract the 'messages' array from props
   const messages = props.messages;
 
   return (
     <View style={styles.container}>
+
+      {/* Create a ScrollView to enable scrolling */}
       <ScrollView>
+
+        {/* Map through the 'messages' array and render each message */}
         {messages.map((message, index) => (
           <View
             key={index}
-            style={[styles.message, { backgroundColor: message.backgroundColor }]}
+            style={[
+              styles.message,
+              { backgroundColor: message.backgroundColor },
+            ]}
           >
-            <Text style={styles.texts}>{message.sender}</Text>
-            <Text style={styles.textm}>{message.text}</Text>
 
+            {/* Render the sender's name */}
+            <Text style={styles.texts}>{message.sender}</Text>
+            {/* Render the message text */}
+            <Text style={styles.textm}>{message.text}</Text>
+            
           </View>
         ))}
       </ScrollView>

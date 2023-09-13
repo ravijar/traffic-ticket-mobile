@@ -3,6 +3,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { SafeAreaView, Text, StyleSheet, View, Pressable } from "react-native";
 import COLORS from "../constants/colors";
 const TimepickerAn = () => {
+
+  // Same as DatepickerAn, but for time
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState("time");
   const [show, setShow] = useState(false);
@@ -14,18 +16,19 @@ const TimepickerAn = () => {
   };
 
   const handlePress = () => {
-    setShow(false); // Dismiss the time picker
+    setShow(false); 
   };
 
   return (
     <Pressable onPress={handlePress} style={styles.container}>
       <View style={styles.row}>
-      <Text style={styles.Text}>Time of Offence:</Text>
+        <Text style={styles.Text}>Time of Offence:</Text>
         <Pressable onPress={() => setShow(true)}>
-        <Text style={{color:COLORS.PRIMARY}}> {date.toLocaleTimeString()}</Text>
-
+          <Text style={{ color: COLORS.PRIMARY }}>
+            {" "}
+            {date.toLocaleTimeString()}
+          </Text>
         </Pressable>
-
       </View>
       {show && (
         <SafeAreaView>
@@ -39,7 +42,6 @@ const TimepickerAn = () => {
         </SafeAreaView>
       )}
     </Pressable>
-    
   );
 };
 

@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Button, Image, View, Platform } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from "react";
+import { Button, Image, View } from "react-native";
+import * as ImagePicker from "expo-image-picker";
 
 export default function ImagePick() {
+  // Initialize state to hold the selected image URI
   const [image, setImage] = useState(null);
 
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
+    // Launch the image library and configure options for the image picker
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -23,13 +24,16 @@ export default function ImagePick() {
 
   return (
     <View>
-    <View style={{ alignItems: 'center', justifyContent: 'center'}}>
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-    </View>
-    <View style={{alignItems:'center'}}>
-    {image && <Image source={{ uri: image }} style={{ width: 200,height: 150 }} />}
-
-    </View>
+      <View style={{ alignItems: "center", justifyContent: "center" }}>
+        <Button title="Pick an image from camera roll" onPress={pickImage} />
+      </View>
+      <View style={{ alignItems: "center" }}>
+        
+        {/* Display the selected image if available */}
+        {image && (
+          <Image source={{ uri: image }} style={{ width: 200, height: 150 }} />
+        )}
+      </View>
     </View>
   );
 }
