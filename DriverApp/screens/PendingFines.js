@@ -6,6 +6,7 @@ import styles from "../components/styles";
 import Topic from "../components/Topic";
 import { Table, Row, Rows } from "react-native-table-component";
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
+import { API_URL } from "../src/utils/constants";
 
 const PendingFines = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
@@ -15,10 +16,10 @@ const PendingFines = ({ navigation }) => {
   const data = fines.map((fine) => Object.values(fine));
 
   useEffect(() => {
-    fetch(
-      "https://4073-2401-dd00-10-20-f81b-bb40-585a-a178.ngrok.io/api/fines/",
-      { method: "GET", headers: { accept: "application/json" } }
-    )
+    fetch(API_URL + "/api/fines/", {
+      method: "GET",
+      headers: { accept: "application/json" },
+    })
       .then((res) => {
         // console.log({ res });
         return res.json();

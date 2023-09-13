@@ -8,8 +8,25 @@ import {
 } from "@gluestack-ui/themed";
 import styles from "../styles";
 import { View, Text } from "react-native";
+import React, { useState } from "react";
+import { onLogin } from "../../src/apis/auth";
 
 const Loginbox = ({ navigation }) => {
+  const [nic, setNic] = useState("asith");
+  const [password, setPassword] = useState("asith");
+
+  const onSubmit = () => {
+    // console.log("nic", nic);
+    onLogin(nic, password)
+      .then((res) => {
+        // console.log("res", res);
+        navigation.navigate("Dashboard");
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+
   return (
     <View style={styles.container2}>
       <View style={{ marginTop: "15%", marginBottom: "15%" }}>
@@ -21,7 +38,11 @@ const Loginbox = ({ navigation }) => {
           isInvalid={false}
           isReadOnly={false}
         >
-          <InputField placeholder="NIC Number" />
+          <InputField
+            placeholder="NIC Number"
+            value={nic}
+            onChangeText={(text) => setNic(text)}
+          />
         </Input>
 
         <Input
@@ -32,7 +53,12 @@ const Loginbox = ({ navigation }) => {
           isInvalid={false}
           isReadOnly={false}
         >
-          <InputField placeholder="Password" />
+          <InputField
+            placeholder="Password"
+            value={password}
+            type="password"
+            onChangeText={(text) => setPassword(text)}
+          />
         </Input>
       </View>
       <Button
@@ -42,7 +68,8 @@ const Loginbox = ({ navigation }) => {
         action="primary"
         isDisabled={false}
         isFocusVisible={false}
-        onPress={() => navigation.navigate("Dashboard")}
+        // onPress={() => navigation.navigate("Dashboard")}
+        onPress={onSubmit}
       >
         <ButtonText style={styles.button}>Sign In </ButtonText>
       </Button>
