@@ -9,17 +9,15 @@ import {
 import styles from "../styles";
 import { View, Text } from "react-native";
 import React, { useState } from "react";
-import { onLogin } from "../../src/apis/auth";
+import { onLogin } from "../../apis/auth";
 
 const Loginbox = ({ navigation }) => {
-  const [nic, setNic] = useState("asith");
-  const [password, setPassword] = useState("asith");
+  const [nic, setNic] = useState("nimesh");
+  const [password, setPassword] = useState("nimesh");
 
   const onSubmit = () => {
-    // console.log("nic", nic);
     onLogin(nic, password)
       .then((res) => {
-        // console.log("res", res);
         navigation.navigate("Dashboard");
       })
       .catch((err) => {
@@ -68,7 +66,6 @@ const Loginbox = ({ navigation }) => {
         action="primary"
         isDisabled={false}
         isFocusVisible={false}
-        // onPress={() => navigation.navigate("Dashboard")}
         onPress={onSubmit}
       >
         <ButtonText style={styles.button}>Sign In </ButtonText>
@@ -88,7 +85,6 @@ const Loginbox = ({ navigation }) => {
       <Link onPress={() => navigation.navigate("ChangePassword")}>
         <LinkText size="sm">Change Password</LinkText>
       </Link>
-      {/* </View> */}
     </View>
   );
 };

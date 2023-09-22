@@ -6,7 +6,7 @@ import styles from "../components/styles";
 import Topic from "../components/Topic";
 import { Table, Row, Rows } from "react-native-table-component";
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
-import { API_URL } from "../src/utils/constants";
+import { API_URL } from "../utils/constants";
 
 const PendingFines = ({ navigation }) => {
   const [loading, setLoading] = useState(true);

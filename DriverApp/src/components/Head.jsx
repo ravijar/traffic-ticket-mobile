@@ -8,6 +8,7 @@ import {
   SafeAreaView,
 } from "react-native";
 
+//component to add the header for the needed page
 const Head = ({ navigation, topic }) => {
   return (
     <SafeAreaView style={styles.header}>

@@ -9,6 +9,7 @@ import {
 import styles from "./styles";
 import { View, Text } from "react-native";
 
+//box to add details needed for registration
 const RegisterBox = ({ navigation }) => {
   return (
     <View style={styles.registerContainer}>

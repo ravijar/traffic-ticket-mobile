@@ -11,23 +11,25 @@ import {
   PendingFines,
   Suggestions,
   Register,
-} from "./screens";
+} from "./src/screens";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { Image } from "react-native";
-import styles from "./components/styles";
-import COLORS from "./constants/colors";
+import styles from "./src/components/styles";
+import COLORS from "./src/constants/colors";
 import { useNavigation } from "@react-navigation/native";
 const Stack = createStackNavigator();
 
 const Navigation = () => {
   const navigation = useNavigation();
+  const isSignedIn = false;
 
   return (
     // <NavigationContainer>
     <Stack.Navigator
       initialRouteName="Welcome"
       screenOptions={{
+        //header component for all screens
         headerTitleAlign: "center",
         headerTitle: (props) => {
           // console.log(props);
@@ -41,7 +43,7 @@ const Navigation = () => {
               style={{ paddingHorizontal: "15%" }}
             >
               <Image
-                source={require("./assets/back.jpg")}
+                source={require("./src/assets/back.jpg")}
                 style={styles.back}
               />
             </TouchableOpacity>
@@ -54,7 +56,7 @@ const Navigation = () => {
               style={{ paddingHorizontal: "15%" }}
             >
               <Image
-                source={require("./assets/logout.jpg")}
+                source={require("./src/assets/logout.jpg")}
                 style={styles.logout}
               />
             </TouchableOpacity>
@@ -62,58 +64,80 @@ const Navigation = () => {
         },
       }}
     >
-      <Stack.Screen
-        name="Welcome"
-        component={Welcome}
-        options={{ headerShown: false }}
-      />
+      {/* code need to be changed.just for testing */}
+      {isSignedIn ? (
+        <>
+          <Stack.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{ title: "Dashboard" }}
+          />
+          <Stack.Screen
+            name="PendingFines"
+            component={PendingFines}
+            options={{ title: "Pending Fines" }}
+          />
+          <Stack.Screen
+            name="AccidentReporting"
+            component={AccidentReporting}
+            options={{ title: "Reporting" }}
+          />
+          <Stack.Screen
+            name="Suggestions"
+            component={Suggestions}
+            options={{ title: "Suggestions" }}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgotPassword"
+            component={ForgotPassword}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePassword}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{ headerShown: false }}
+          />
 
-      <Stack.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="ForgotPassword"
-        component={ForgotPassword}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="ChangePassword"
-        component={ChangePassword}
-        options={{ headerShown: false }}
-      />
-
-      <Stack.Screen
-        name="Dashboard"
-        component={Dashboard}
-        options={{ title: "Dashboard" }}
-      />
-      <Stack.Screen
-        name="PendingFines"
-        component={PendingFines}
-        options={{ title: "Pending Fines" }}
-      />
-
-      <Stack.Screen
-        name="AccidentReporting"
-        component={AccidentReporting}
-        options={{ title: "Reporting" }}
-      />
-
-      <Stack.Screen
-        name="Suggestions"
-        component={Suggestions}
-        options={{ title: "Suggestions" }}
-      />
-
-      <Stack.Screen
-        name="Register"
-        component={Register}
-        options={{ headerShown: false }}
-      />
+          <Stack.Screen //now
+            name="Dashboard"
+            component={Dashboard}
+            options={{ title: "Dashboard" }}
+          />
+          <Stack.Screen
+            name="PendingFines"
+            component={PendingFines}
+            options={{ title: "Pending Fines" }}
+          />
+          <Stack.Screen
+            name="AccidentReporting"
+            component={AccidentReporting}
+            options={{ title: "Reporting" }}
+          />
+          <Stack.Screen
+            name="Suggestions"
+            component={Suggestions}
+            options={{ title: "Suggestions" }}
+          />
+        </>
+      )}
     </Stack.Navigator>
     // </NavigationContainer>
   );

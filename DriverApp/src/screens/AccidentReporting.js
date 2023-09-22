@@ -15,11 +15,6 @@ import { useState } from "react";
 import { Input, InputField, Button, ButtonText } from "@gluestack-ui/themed";
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 import { Calendar } from "react-native-calendars";
-// import Dropdown from "../components/Dropdown";
-// import DatepickerIOS from "../components/DatepickerIOS";
-// import TimepickerIOS from "../components/TimepickerIOS";
-// import DatepickerAn from "../components/DatepickerAn";
-// import TimepickerAn from "../components/TimepickerAn";
 
 const AccidentReporting = ({ navigation, topic }) => {
   const [place, setPlace] = useState("");

@@ -2,6 +2,7 @@ import React from "react";
 import { View, Image } from "react-native";
 import styles from "./styles";
 
+//component to add footer image
 const Footer = ({ navigation }) => {
   return (
     <View>

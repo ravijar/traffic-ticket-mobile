@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react"; //now
 import { Pressable, Button, ButtonText } from "@gluestack-ui/themed";
 import {
+  Alert, // now
   View,
   SafeAreaView,
   Text,
@@ -12,8 +13,50 @@ import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 import styles from "../components/styles";
 import Head from "../components/Head";
 import Footer from "../components/Footer";
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage //now
+import axios from "axios"; //now
+import { API_URL } from "../utils/constants"; //now
 
 const Dashboard = ({ navigation }) => {
+  //now
+  // const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // useEffect(() => {
+  //   const checkAuthorization = async () => {
+  //     try {
+  //       const accessToken = await AsyncStorage.getItem("accessToken");
+
+  //       if (accessToken) {
+  //         // Make a request to your server to validate the token
+  //         const response = await axios.get(`${API_URL}/api/token/`, {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //           },
+  //         });
+
+  //         if (response.status === 200) {
+  //           setIsAuthorized(true); // Token is authorized
+  //         } else {
+  //           setIsAuthorized(false); // Unauthorized access
+  //           Alert.alert(
+  //             "Unauthorized",
+  //             "You are not authorized to access this page."
+  //           );
+  //         }
+  //       } else {
+  //         setIsAuthorized(false); // Access token doesn't exist
+  //         Alert.alert("Not Logged In", "You are not logged in.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error checking authorization:", error);
+  //       setIsAuthorized(false);
+  //     }
+  //   };
+
+  //   checkAuthorization();
+  // }, []);
+  //now
+
   return (
     <GluestackUIProvider config={config.theme}>
       <SafeAreaView style={styles.containerWhite}>
