@@ -18,11 +18,13 @@ import { Image } from "react-native";
 import styles from "./src/components/styles";
 import COLORS from "./src/constants/colors";
 import { useNavigation } from "@react-navigation/native";
+import { connect } from "react-redux";
+import { setSignedIn } from "./src/redux/auth/actions";
+
 const Stack = createStackNavigator();
 
-const Navigation = () => {
+const Navigation = ({ isSignedIn, setSignedIn }) => {
   const navigation = useNavigation();
-  const isSignedIn = false;
 
   return (
     // <NavigationContainer>
@@ -52,7 +54,10 @@ const Navigation = () => {
         headerRight: (props) => {
           return (
             <TouchableOpacity
-              onPress={() => navigation.navigate("Login")}
+              onPress={async () => {
+                await setSignedIn(false);
+                navigation.navigate("Login");
+              }}
               style={{ paddingHorizontal: "15%" }}
             >
               <Image
@@ -116,7 +121,7 @@ const Navigation = () => {
             options={{ headerShown: false }}
           />
 
-          <Stack.Screen //now
+          {/* <Stack.Screen //now
             name="Dashboard"
             component={Dashboard}
             options={{ title: "Dashboard" }}
@@ -135,7 +140,7 @@ const Navigation = () => {
             name="Suggestions"
             component={Suggestions}
             options={{ title: "Suggestions" }}
-          />
+          /> */}
         </>
       )}
     </Stack.Navigator>
@@ -143,4 +148,14 @@ const Navigation = () => {
   );
 };
 
-export default Navigation;
+const mapStateToProps = (state) => ({
+  isSignedIn: state.auth.isSignedIn,
+});
+
+const mapDispatchToProps = {
+  setSignedIn,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
+
+// export default Navigation;

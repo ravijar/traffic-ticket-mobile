@@ -10,14 +10,17 @@ import styles from "../styles";
 import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { onLogin } from "../../apis/auth";
+import { setSignedIn } from "../../redux/auth/actions";
+import { connect } from "react-redux";
 
-const Loginbox = ({ navigation }) => {
+const Loginbox = ({ navigation, setSignedIn }) => {
   const [nic, setNic] = useState("nimesh");
   const [password, setPassword] = useState("nimesh");
 
   const onSubmit = () => {
     onLogin(nic, password)
-      .then((res) => {
+      .then(async (res) => {
+        await setSignedIn(true);
         navigation.navigate("Dashboard");
       })
       .catch((err) => {
@@ -89,4 +92,11 @@ const Loginbox = ({ navigation }) => {
   );
 };
 
-export default Loginbox;
+const mapStateToProps = (state) => ({
+  isSignedIn: state.auth.isSignedIn,
+});
+
+const mapDispatchToProps = {
+  setSignedIn,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Loginbox);

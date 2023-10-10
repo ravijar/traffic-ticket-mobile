@@ -1,5 +1,4 @@
 import React from "react";
-import Head from "../components/Head";
 import { SafeAreaView, View, TextInput } from "react-native";
 import styles from "../components/styles";
 import Footer from "../components/Footer";
