@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, SafeAreaView, Image } from "react-native";
 import RegisterBox from "../components/RegisterBox";
 import styles from "../components/styles";
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
+import { KeyboardAvoidingView } from "react-native";
 
 const Register = ({ navigation }) => {
   return (
     <GluestackUIProvider config={config.theme}>
-      <SafeAreaView style={styles.container}>
+      {/* <SafeAreaView style={styles.container}> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <Text style={styles.text1}>Register</Text>
 
         <Image
@@ -22,7 +27,8 @@ const Register = ({ navigation }) => {
 
           <RegisterBox navigation={navigation} />
         </ScrollView>
-      </SafeAreaView>
+        {/* </SafeAreaView> */}
+      </KeyboardAvoidingView>
     </GluestackUIProvider>
   );
 };

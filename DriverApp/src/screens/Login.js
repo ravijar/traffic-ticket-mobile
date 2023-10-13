@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, ScrollView, SafeAreaView, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 import Loginbox from "../components/home/loginbox";
@@ -8,7 +15,11 @@ import styles from "../components/styles";
 const Login = ({ navigation }) => {
   return (
     <GluestackUIProvider config={config.theme}>
-      <SafeAreaView style={styles.container}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
+        {/* <SafeAreaView style={styles.container}> */}
         <Text style={styles.text1}>Sign In</Text>
 
         <Image
@@ -26,7 +37,8 @@ const Login = ({ navigation }) => {
           <Loginbox navigation={navigation} />
           {/* box for login */}
         </ScrollView>
-      </SafeAreaView>
+        {/* </SafeAreaView> */}
+      </KeyboardAvoidingView>
     </GluestackUIProvider>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView, View, TextInput } from "react-native";
 import styles from "../components/styles";
 import Footer from "../components/Footer";
@@ -12,8 +12,33 @@ import {
   ButtonText,
 } from "@gluestack-ui/themed";
 import { ScrollView } from "react-native-gesture-handler";
+import axios from "axios";
+import { API_URL } from "../utils/constants";
+import { KeyboardAvoidingView } from "react-native";
 
 const PendingFines = ({ navigation, topic }) => {
+  const [suggestion, setSuggestion] = useState("");
+
+  const onSubmit = () => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(
+          `${API_URL}/api/suggestions/`,
+          {
+            suggestion,
+          },
+          config
+        )
+
+        .then(() => {
+          alert("Your suggestion/complaint has been submitted successfully");
+          setSuggestion("");
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
   return (
     <GluestackUIProvider config={config.theme}>
       <SafeAreaView style={styles.containerWhite}>
@@ -25,6 +50,10 @@ const PendingFines = ({ navigation, topic }) => {
             style={{ width: "100%" }}
             contentContainerStyle={styles.scrollViewContent}
           >
+            {/* <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            style={styles.containerWhite}
+          > */}
             <View
               style={{
                 marginTop: "30%",
@@ -40,7 +69,11 @@ const PendingFines = ({ navigation, topic }) => {
                 w="100%"
                 style={{ height: 200 }}
               >
-                <TextareaInput placeholder="Give us your suggestions/complaints" />
+                <TextareaInput
+                  placeholder="Give us your suggestions/complaints"
+                  value={suggestion}
+                  onChangeText={(text) => setSuggestion(text)}
+                />
               </Textarea>
             </View>
 
@@ -52,12 +85,13 @@ const PendingFines = ({ navigation, topic }) => {
                 action="primary"
                 isDisabled={false}
                 isFocusVisible={false}
-                onPress={() => navigation.navigate("Dashboard")}
+                onPress={onSubmit}
               >
                 <ButtonText style={styles.button}>Submit </ButtonText>
               </Button>
             </View>
           </ScrollView>
+          {/* </KeyboardAvoidingView> */}
         </View>
 
         <Footer navigation={navigation} />

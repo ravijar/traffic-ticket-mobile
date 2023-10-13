@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
-import { SafeAreaView, View, Text, ScrollView } from "react-native";
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import styles from "../components/styles";
 import Topic from "../components/Topic";
 import { Table, Row, Rows } from "react-native-table-component";
@@ -10,9 +16,47 @@ import { API_URL } from "../utils/constants";
 const PendingFines = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
   const [fines, setFines] = useState([]);
+  const [header, setHeader] = useState([]);
 
-  const header = fines[0] && Object.keys(fines[0]);
-  const data = fines.map((fine) => Object.values(fine));
+  const modifiedHeader = header.map((fieldName) => {
+    if (fieldName === "fine_id") {
+      return "ID";
+    } else if (fieldName === "violation_amount") {
+      return "Amount";
+    } else if (fieldName === "vehicle") {
+      return "Vehicle";
+    } else if (fieldName === "date") {
+      return "Date";
+    } else if (fieldName === "time") {
+      return "Time";
+    } else {
+      return fieldName;
+    }
+  });
+
+  const data = fines.map((fine) => {
+    const rowData = Object.values(fine);
+    // Add the value for the new column "Pay"
+    rowData.push(
+      <TouchableOpacity
+        onPress={() => {
+          // Handle the link click here
+          // You can use navigation or any other action
+        }}
+      >
+        <Text
+          style={{
+            alignSelf: "center",
+            color: "blue",
+            textDecorationLine: "underline",
+          }}
+        >
+          Pay
+        </Text>
+      </TouchableOpacity>
+    );
+    return rowData;
+  });
 
   useEffect(() => {
     fetch(API_URL + "/api/fines/", {
@@ -20,11 +64,19 @@ const PendingFines = ({ navigation }) => {
       headers: { accept: "application/json" },
     })
       .then((res) => {
-        // console.log({ res });
+        console.log({ res });
         return res.json();
       })
       .then((data) => {
-        console.log({ data });
+        if (data.results.length > 0) {
+          setHeader(Object.keys(data.results[0]));
+          setHeader((prevHeader) => {
+            prevHeader.push("Pay"); // Add "Pay" to the header
+            return prevHeader;
+          });
+        }
+
+        // console.log({ data });
         setFines(data.results);
       })
       .catch((err) => {
@@ -59,10 +111,11 @@ const PendingFines = ({ navigation }) => {
         <View style={tableStyles.tableWrapper}>
           <Table borderStyle={{ borderWidth: 1, borderColor: "#c8e1ff" }}>
             <Row
-              data={header}
+              data={modifiedHeader}
               style={tableStyles.header}
               textStyle={tableStyles.headerText}
             />
+
             <Rows
               data={data}
               textStyle={tableStyles.text}

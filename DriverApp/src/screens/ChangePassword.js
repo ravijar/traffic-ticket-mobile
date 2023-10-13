@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, ScrollView, SafeAreaView, Image } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  Image,
+  KeyboardAvoidingView,
+} from "react-native";
 import PasswordChangeBox from "../components/passwordChange";
 import styles from "../components/styles";
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
@@ -7,7 +14,11 @@ import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 const ChangePassword = ({ navigation }) => {
   return (
     <GluestackUIProvider config={config.theme}>
-      <SafeAreaView style={styles.container}>
+      {/* <SafeAreaView style={styles.container}> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <Text style={styles.text1}>Password Change</Text>
 
         <Image
@@ -23,7 +34,8 @@ const ChangePassword = ({ navigation }) => {
           <PasswordChangeBox navigation={navigation} />
           {/* box to fill up the details needed for changing the password*/}
         </ScrollView>
-      </SafeAreaView>
+        {/* </SafeAreaView> */}
+      </KeyboardAvoidingView>
     </GluestackUIProvider>
   );
 };

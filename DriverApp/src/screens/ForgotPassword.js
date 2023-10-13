@@ -23,7 +23,11 @@ import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 const ForgotPassword = ({ navigation }) => {
   return (
     <GluestackUIProvider config={config.theme}>
-      <SafeAreaView style={styles.container}>
+      {/* <SafeAreaView style={styles.container}> */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.container}
+      >
         <Text style={styles.text1}>Forgot Password</Text>
 
         <Image
@@ -45,7 +49,7 @@ const ForgotPassword = ({ navigation }) => {
                 isInvalid={false}
                 isReadOnly={false}
               >
-                <InputField placeholder="NIC Number" />
+                <InputField placeholder="Email Address" />
               </Input>
             </View>
 
@@ -65,7 +69,7 @@ const ForgotPassword = ({ navigation }) => {
                 isFocusVisible={false}
                 onPress={() => navigation.navigate("Login")}
               >
-                <ButtonText style={styles.button}>Send Message </ButtonText>
+                <ButtonText style={styles.button}>Send Email </ButtonText>
               </Button>
 
               <Link //link to sign in page
@@ -77,7 +81,8 @@ const ForgotPassword = ({ navigation }) => {
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
-      </SafeAreaView>
+        {/* </SafeAreaView> */}
+      </KeyboardAvoidingView>
     </GluestackUIProvider>
   );
 };

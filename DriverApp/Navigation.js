@@ -75,7 +75,7 @@ const Navigation = ({ isSignedIn, setSignedIn }) => {
           <Stack.Screen
             name="Dashboard"
             component={Dashboard}
-            options={{ title: "Dashboard" }}
+            options={{ title: "Dashboard", headerLeft: null }}
           />
           <Stack.Screen
             name="PendingFines"

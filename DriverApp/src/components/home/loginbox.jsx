@@ -24,6 +24,7 @@ const Loginbox = ({ navigation, setSignedIn }) => {
         navigation.navigate("Dashboard");
       })
       .catch((err) => {
+        alert("Invalid Login Credentials");
         console.log("err", err);
       });
   };
