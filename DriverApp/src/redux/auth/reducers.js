@@ -9,6 +9,11 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isSignedIn: action.payload,
       };
+    case "SET_NIC":
+      return {
+        ...state,
+        nic: action.payload,
+      };
     default:
       return state;
   }

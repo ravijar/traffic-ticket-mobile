@@ -67,7 +67,7 @@ const PendingFines = ({ navigation, topic }) => {
                 isInvalid={false}
                 isDisabled={false}
                 w="100%"
-                style={{ height: 200 }}
+                style={{ width: 300, height: 200 }}
               >
                 <TextareaInput
                   placeholder="Give us your suggestions/complaints"

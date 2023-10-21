@@ -215,13 +215,14 @@ import { API_URL } from "../utils/constants";
 import axios from "axios";
 import DateTimePicker from "@react-native-community/datetimepicker";
 const { width, height } = Dimensions.get("screen");
+import { connect } from "react-redux";
 
-const AccidentReporting = ({ navigation, topic }) => {
+const AccidentReporting = ({ navigation, topic, nic }) => {
   const [place, setPlace] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState(new Date()); // Initialize with a Date object
   const [description, setDescription] = useState("");
-  const [reporter, setReporter] = useState("");
+  // const [reporter, setReporter] = useState("");
   // const [showTimePicker, setShowTimePicker] = useState(false);
 
   const onSubmit = () => {
@@ -238,7 +239,7 @@ const AccidentReporting = ({ navigation, topic }) => {
             date: formattedDate,
             location: place,
             description,
-            reporter,
+            reporter: nic,
           },
           config
         )
@@ -248,7 +249,7 @@ const AccidentReporting = ({ navigation, topic }) => {
           setTime("");
           setDate(new Date()); // Reset to a new Date object
           setDescription("");
-          setReporter("");
+          // setReporter("");
         })
         .catch((error) => {
           reject(error);
@@ -336,14 +337,15 @@ const AccidentReporting = ({ navigation, topic }) => {
               />
             </Input>
 
-            <Text style={styles.formText}>Reporter NIC:</Text>
-            <Input style={styles.input2}>
+            <Text style={styles.formText}>Reporter NIC:{nic}</Text>
+            {/* <Input style={styles.input2}>
               <InputField
                 placeholder="Enter Your NIC"
-                value={reporter}
-                onChangeText={(text) => setReporter(text)}
+                value={nic}
+                isReadOnly={true}
+                // onChangeText={(text) => setReporter(text)}
               />
-            </Input>
+            </Input> */}
 
             <View style={{ marginTop: "5%" }}>
               <Button
@@ -365,5 +367,8 @@ const AccidentReporting = ({ navigation, topic }) => {
     </GluestackUIProvider>
   );
 };
-
-export default AccidentReporting;
+const mapStateToProps = (state) => ({
+  nic: state.auth.nic, // Assuming that 'nic' is stored in your Redux state
+});
+// export default AccidentReporting;
+export default connect(mapStateToProps)(AccidentReporting);

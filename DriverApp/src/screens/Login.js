@@ -26,14 +26,13 @@ const Login = ({ navigation }) => {
           source={require("../assets/traffic-ticket-high-resolution-logo-white-on-transparent-background.png")} //trafficticket logo
           style={styles.image}
         />
+        <Text style={styles.text2}>
+          Please sign in to your existing account
+        </Text>
         <ScrollView
           style={{ width: "100%" }}
           contentContainerStyle={styles.scrollViewContent}
         >
-          <Text style={styles.text2}>
-            Please sign in to your existing account
-          </Text>
-
           <Loginbox navigation={navigation} />
           {/* box for login */}
         </ScrollView>

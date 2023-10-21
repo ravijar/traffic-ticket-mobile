@@ -8,9 +8,10 @@ import {
 } from "@gluestack-ui/themed";
 import styles from "./styles";
 import { View, Text } from "react-native";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 import { API_URL } from "../utils/constants";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 //box to add details needed for registration
 const RegisterBox = ({ navigation }) => {
@@ -22,6 +23,10 @@ const RegisterBox = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [licenseID, setLicenseID] = useState("");
+
+  // const handleSheetChanges = useCallback((index) => {
+  //   console.log("handleSheetChanges", index);
+  // }, []);
 
   const onSubmit = () => {
     if (
@@ -35,6 +40,15 @@ const RegisterBox = ({ navigation }) => {
     ) {
       alert("Please fill in all the required fields.");
       return; // Exit the function early
+    }
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!email.match(emailPattern)) {
+      alert("Please enter a valid email address.");
+      return; // Exit the function if the email is not valid
+    }
+    if (NIC.length < 10 || NIC.length > 12) {
+      alert("NIC must be between 10 and 12 characters.");
+      return; // Exit the function if the NIC length is not valid
     }
     if (password === confirmPassword) {
       return new Promise((resolve, reject) => {
@@ -70,7 +84,13 @@ const RegisterBox = ({ navigation }) => {
 
   return (
     <View style={styles.registerContainer}>
+      {/* <BottomSheet
+        snapPoints={["10%", "50%"]}
+        enablePanDownToClose
+        onChange={handleSheetChanges}
+      > */}
       <View>
+        <Text style={styles.formText}>First Name</Text>
         <Input
           style={styles.input2}
           variant="outline"
@@ -86,7 +106,7 @@ const RegisterBox = ({ navigation }) => {
           />
         </Input>
       </View>
-
+      <Text style={styles.formText}>Last Name</Text>
       <Input
         style={styles.input2}
         variant="outline"
@@ -101,7 +121,7 @@ const RegisterBox = ({ navigation }) => {
           onChangeText={(text) => setLastName(text)}
         />
       </Input>
-
+      <Text style={styles.formText}>NIC</Text>
       <Input
         style={styles.input2}
         variant="outline"
@@ -116,6 +136,7 @@ const RegisterBox = ({ navigation }) => {
           onChangeText={(text) => setNIC(text)}
         />
       </Input>
+      <Text style={styles.formText}>License ID</Text>
       <Input
         style={styles.input2}
         variant="outline"
@@ -130,6 +151,7 @@ const RegisterBox = ({ navigation }) => {
           onChangeText={(text) => setLicenseID(text)}
         />
       </Input>
+      <Text style={styles.formText}>Email</Text>
       <Input
         style={styles.input2}
         variant="outline"
@@ -144,7 +166,7 @@ const RegisterBox = ({ navigation }) => {
           onChangeText={(text) => setEmail(text)}
         />
       </Input>
-
+      <Text style={styles.formText}>Password</Text>
       <Input
         style={styles.input2}
         variant="outline"
@@ -159,7 +181,7 @@ const RegisterBox = ({ navigation }) => {
           onChangeText={(text) => setPassword(text)}
         />
       </Input>
-
+      <Text style={styles.formText}>Confirm Password</Text>
       <Input
         style={styles.input2}
         variant="outline"
@@ -191,12 +213,13 @@ const RegisterBox = ({ navigation }) => {
           <ButtonText style={styles.button}>Sign Up</ButtonText>
         </Button>
       </View>
-      <View style={{ flexDirection: "row" }}>
+      {/* <View style={{ flexDirection: "row" }}>
         <Text size="lg">Already have an account? </Text>
         <Link onPress={() => navigation.navigate("Login")}>
           <LinkText size="sm">Sign In</LinkText>
         </Link>
-      </View>
+      </View> */}
+      {/* </BottomSheet> */}
     </View>
   );
 };

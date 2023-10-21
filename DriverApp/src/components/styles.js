@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
   text2: {
     color: "white",
     fontSize: 14,
-    marginTop: 20,
-    marginBottom: 25,
+    marginTop: 10,
+    marginBottom: 5,
   },
   image: {
     width: 200,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 10,
     marginBottom: "5%",
-    marginTop: "5%",
+    // marginTop: "5%",
   },
   input2: {
     width: "65%",
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#155E75",
     fontSize: 12,
+    marginBottom: "5%",
   },
   inputRow: {
     flexDirection: "row", // Align input fields in a row
@@ -179,8 +180,9 @@ const styles = StyleSheet.create({
     //text used for forms
     color: COLORS.BLACK,
     fontSize: 20,
-    marginTop: "2%",
+    // marginTop: "2%",
     fontWeight: "bold",
+    alignSelf: "center",
   },
   registerContainer: {
     flex: 1,
@@ -194,6 +196,7 @@ const styles = StyleSheet.create({
     //justifyContent: 'center', // Vertically center content
     alignItems: "center", // Horizontally center content
     marginBottom: "5%",
+    marginTop: "5%",
   },
 
   scrollViewContent: {

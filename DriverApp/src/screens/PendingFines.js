@@ -12,8 +12,9 @@ import Topic from "../components/Topic";
 import { Table, Row, Rows } from "react-native-table-component";
 import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 import { API_URL } from "../utils/constants";
+import { connect } from "react-redux";
 
-const PendingFines = ({ navigation }) => {
+const PendingFines = ({ navigation, nic }) => {
   const [loading, setLoading] = useState(true);
   const [fines, setFines] = useState([]);
   const [header, setHeader] = useState([]);
@@ -59,12 +60,12 @@ const PendingFines = ({ navigation }) => {
   });
 
   useEffect(() => {
-    fetch(API_URL + "/api/fines/", {
+    fetch(API_URL + "/api/driverfine/?driver_id=" + nic, {
       method: "GET",
       headers: { accept: "application/json" },
     })
       .then((res) => {
-        console.log({ res });
+        // console.log({ res });
         return res.json();
       })
       .then((data) => {
@@ -109,19 +110,32 @@ const PendingFines = ({ navigation }) => {
       >
         <Topic navigation={navigation} topic={"PENDING FINES"} />
         <View style={tableStyles.tableWrapper}>
-          <Table borderStyle={{ borderWidth: 1, borderColor: "#c8e1ff" }}>
-            <Row
-              data={modifiedHeader}
-              style={tableStyles.header}
-              textStyle={tableStyles.headerText}
-            />
-
-            <Rows
-              data={data}
-              textStyle={tableStyles.text}
-              style={tableStyles.rows}
-            />
-          </Table>
+          {data.length > 0 ? ( // Check if data is available
+            <>
+              <Table borderStyle={{ borderWidth: 1, borderColor: "#c8e1ff" }}>
+                <Row
+                  data={modifiedHeader}
+                  style={tableStyles.header}
+                  textStyle={tableStyles.headerText}
+                />
+                <Rows
+                  data={data}
+                  textStyle={tableStyles.text}
+                  style={tableStyles.rows}
+                />
+              </Table>
+            </>
+          ) : (
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 16,
+                fontWeight: "bold",
+              }}
+            >
+              --- No Pending Fines ---
+            </Text>
+          )}
         </View>
       </ScrollView>
       <Footer navigation={navigation} />
@@ -129,4 +143,9 @@ const PendingFines = ({ navigation }) => {
   );
 };
 
-export default PendingFines;
+// export default PendingFines;
+const mapStateToProps = (state) => ({
+  nic: state.auth.nic, // Assuming that 'nic' is stored in your Redux state
+});
+// export default AccidentReporting;
+export default connect(mapStateToProps)(PendingFines);

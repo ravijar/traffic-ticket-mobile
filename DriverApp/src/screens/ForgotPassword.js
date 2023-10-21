@@ -41,6 +41,16 @@ const ForgotPassword = ({ navigation }) => {
         >
           <KeyboardAvoidingView>
             <View style={{ marginTop: "20%", width: "100%" }}>
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  color: "white",
+                  alignSelf: "center",
+                }}
+              >
+                Enter NIC:
+              </Text>
               <Input //input field for NIC number
                 style={styles.input}
                 variant="outline"
@@ -49,7 +59,7 @@ const ForgotPassword = ({ navigation }) => {
                 isInvalid={false}
                 isReadOnly={false}
               >
-                <InputField placeholder="Email Address" />
+                <InputField placeholder="Enter NIC" />
               </Input>
             </View>
 
@@ -69,7 +79,7 @@ const ForgotPassword = ({ navigation }) => {
                 isFocusVisible={false}
                 onPress={() => navigation.navigate("Login")}
               >
-                <ButtonText style={styles.button}>Send Email </ButtonText>
+                <ButtonText>Send Email </ButtonText>
               </Button>
 
               <Link //link to sign in page

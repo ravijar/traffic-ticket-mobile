@@ -20,6 +20,10 @@ const PasswordChangeBox = ({ navigation }) => {
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const onSubmit = () => {
+    if (NIC.length < 10 || NIC.length > 12) {
+      alert("NIC must be between 10 and 12 characters.");
+      return; // Exit the function if the NIC length is not valid
+    }
     if (newPassword === confirmNewPassword) {
       return new Promise((resolve, reject) => {
         axios
@@ -40,7 +44,8 @@ const PasswordChangeBox = ({ navigation }) => {
             setConfirmNewPassword("");
           })
           .catch((error) => {
-            reject(error);
+            // reject(error);
+            alert("Invalid NIC or password");
             // Handle error, you can display an alert or a message here
           });
       });
@@ -52,6 +57,7 @@ const PasswordChangeBox = ({ navigation }) => {
   return (
     <View style={styles.registerContainer}>
       <View style={{ marginTop: "5%" }}>
+        <Text style={styles.formText}>NIC Number:</Text>
         <Input
           style={styles.input}
           variant="outline"
@@ -67,7 +73,7 @@ const PasswordChangeBox = ({ navigation }) => {
           />
         </Input>
       </View>
-
+      <Text style={styles.formText}>Current Password:</Text>
       <Input
         style={styles.input}
         variant="outline"
@@ -82,7 +88,7 @@ const PasswordChangeBox = ({ navigation }) => {
           onChangeText={(text) => setCurrentPassword(text)}
         />
       </Input>
-
+      <Text style={styles.formText}>New Password:</Text>
       <Input
         style={styles.input}
         variant="outline"
@@ -97,7 +103,7 @@ const PasswordChangeBox = ({ navigation }) => {
           onChangeText={(text) => setNewPassword(text)}
         />
       </Input>
-
+      <Text style={styles.formText}>Confirm Password:</Text>
       <Input
         style={styles.input}
         variant="outline"

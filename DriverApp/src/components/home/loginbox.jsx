@@ -10,17 +10,18 @@ import styles from "../styles";
 import { View, Text } from "react-native";
 import React, { useState } from "react";
 import { onLogin } from "../../apis/auth";
-import { setSignedIn } from "../../redux/auth/actions";
+import { setSignedIn, setUserNIC } from "../../redux/auth/actions";
 import { connect } from "react-redux";
 
-const Loginbox = ({ navigation, setSignedIn }) => {
-  const [nic, setNic] = useState("nimesh");
+const Loginbox = ({ navigation, setSignedIn, setUserNIC }) => {
+  const [nic, setNic] = useState("200023003421");
   const [password, setPassword] = useState("nimesh");
 
   const onSubmit = () => {
     onLogin(nic, password)
       .then(async (res) => {
         await setSignedIn(true);
+        setUserNIC(nic);
         navigation.navigate("Dashboard");
       })
       .catch((err) => {
@@ -32,6 +33,7 @@ const Loginbox = ({ navigation, setSignedIn }) => {
   return (
     <View style={styles.container2}>
       <View style={{ marginTop: "15%", marginBottom: "15%" }}>
+        <Text style={styles.formText}>NIC Number:</Text>
         <Input
           style={styles.input}
           variant="outline"
@@ -46,7 +48,7 @@ const Loginbox = ({ navigation, setSignedIn }) => {
             onChangeText={(text) => setNic(text)}
           />
         </Input>
-
+        <Text style={styles.formText}>Password:</Text>
         <Input
           style={styles.input}
           variant="outline"
@@ -72,7 +74,7 @@ const Loginbox = ({ navigation, setSignedIn }) => {
         isFocusVisible={false}
         onPress={onSubmit}
       >
-        <ButtonText style={styles.button}>Sign In </ButtonText>
+        <ButtonText>Sign In </ButtonText>
       </Button>
 
       <View style={{ flexDirection: "row" }}>
@@ -95,9 +97,11 @@ const Loginbox = ({ navigation, setSignedIn }) => {
 
 const mapStateToProps = (state) => ({
   isSignedIn: state.auth.isSignedIn,
+  nic: state.auth.nic,
 });
 
 const mapDispatchToProps = {
   setSignedIn,
+  setUserNIC,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Loginbox);
