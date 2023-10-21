@@ -21,13 +21,16 @@ import TextArea from "../components/TextArea";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const AddNewFine = ({ navigation }) => {
-  // State variables to capture user input
+  // State variables to capture user 
   const [vehicleNo, setVehicleNo] = useState("");
   const [nicNo, setNicNo] = useState("");
   const [place, setPlace] = useState("");
   const [type, setType] = useState("");
   const [selectedDate, setSelectedDate] = useState(""); // State to store the selected date
   const [selectedTime, setSelectedTime] = useState(""); // State to store the selected time
+  const [description, setDescription] = useState(""); // State to store the description of the violation
+
+  const sendData = [vehicleNo, nicNo, place, type, selectedDate, selectedTime, description]
 
   // Array to store collected data in a tabular format
   const tableData = [
@@ -38,17 +41,23 @@ const AddNewFine = ({ navigation }) => {
     { column1: "Date", column2: selectedDate },
     { column1: "Time", column2: selectedTime },
   ];
+  
 
   const handleConfirm = () => {
     //navigate to OTPscreen and pass the input values as route params
     navigation.navigate("OTPscreen", {
       tableData, // Pass the tableData to OTPscreen
+      sendData
     });
   };
 
   // Function to handle the selection of a violation type from the dropdown
-  const handleTypeSelection = (selectedItem, index) => {
+  const handleViolationSelection = (selectedItem, index) => {
     setType(selectedItem); // Update the 'type' state with the selected value
+  };
+
+  const handlePlaceSelection = (selectedItem, index) => {
+    setPlace(selectedItem); // Update the 'type' state with the selected value
   };
 
   return (
@@ -92,14 +101,17 @@ const AddNewFine = ({ navigation }) => {
               onChangeText={(text) => setNicNo(text)}
             />
 
-            <InputTextCurve
-              style={styles.input}
-              placeholder="Place of Offence"
-              onChangeText={(text) => setPlace(text)}
+            
+            <Dropdown onSelect={handlePlaceSelection}
+            dropdownlist={["Katubedda", "Rawathawaththa", "Moratuwa", "Molpe", "Other"]}
+            defaultButtonText={"Select Place"}
             />
 
             {/* Dropdown for selecting violation type */}
-            <Dropdown onSelect={handleTypeSelection} />
+            <Dropdown onSelect={handleViolationSelection}
+            dropdownlist={["Speeding", "Red Light", "Stop Sign", "Lane Cross", "Other"]}
+            defaultButtonText={"Select Violation"}
+            />
 
             <></>
 
@@ -122,9 +134,12 @@ const AddNewFine = ({ navigation }) => {
               </>
             )}
 
-            <TextArea />
+            <TextArea 
+            onChangeText={(text) => setDescription(text)}
+            />
 
-            <ImagePick />
+            {/* <ImagePick /> */}
+            {/* Image picker disable in this version */}
 
           </View>
 

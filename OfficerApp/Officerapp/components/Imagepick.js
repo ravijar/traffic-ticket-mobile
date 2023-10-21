@@ -18,7 +18,9 @@ export default function ImagePick() {
     console.log(result);
 
     if (!result.canceled) {
-      setImage(result.assets[0].uri);
+      delete result.canceled;
+
+      setImage(result.assets[0]?.uri);
     }
   };
 

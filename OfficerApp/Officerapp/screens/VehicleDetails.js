@@ -5,16 +5,21 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import COLORS from "../constants/colors";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import Footer from "../components/Fotter";
 import InputTextCurve from "../components/InputTextCurve";
 import Table from "../components/Table";
+import ModalTester from "../components/ModalTester";
+import { API_URL } from "../constants/url";
 
 const VehicleDetails = ({ navigation }) => {
-  // State variables to store vehicle details
+
+  const [Fail1, setFail1] = useState(false);
+  const [Fail2, setFail2] = useState(false);
+  const [input, setInput] = useState(""); // State to store the vehicle number entered by the user
   const [vehicleNo, setVehicleNo] = useState("None");
   const [ownerName, setOwnerName] = useState("None");
   const [chassisNo, setChassisNo] = useState("None");
@@ -34,17 +39,61 @@ const VehicleDetails = ({ navigation }) => {
     { column1: "LICENSE EXPIRE DATE", column2: licenseExpireDate },
   ];
 
-  // Function to handle form submission
-  const handleSubmit = () => {
-    // Simulate setting vehicle details (Replace with actual data retrieval logic)
-    setVehicleNo("WP-AB-1234");
-    setOwnerName("John Doe");
-    setChassisNo("123456789");
-    setEngineNo("123456789");
-    setVehicleType("Car");
-    setColor("Red");
-    setLicenseExpireDate("2021-12-31");
+  const settabletoempty = () => {
+    setVehicleNo("None");
+    setOwnerName("None");
+    setChassisNo("None");
+    setEngineNo("None");
+    setVehicleType("None");
+    setColor("None");
+    setLicenseExpireDate("None");
   };
+
+  const handlefail1 = () => {
+    settabletoempty();
+    setFail1(true);
+    setTimeout(() => {
+      setFail1(false); // Set the button press state to false after 10 milisecond
+    }, 10);
+  };
+  const handlefail2 = () => {
+    settabletoempty();
+    setFail2(true);
+    setTimeout(() => {
+      setFail2(false); // Set the button press state to false after 10 milisecond
+    }, 10);
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async () => {
+    const trimmedInput = input.trim();
+
+    try {
+      const response = await fetch(`${API_URL}api/vehicles/${trimmedInput}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        const data = await response.json(); // Parse the JSON response
+        setVehicleNo(data.vehicle_number);
+        setOwnerName(data.owner_name);
+        setChassisNo(data.chassis_number);
+        setEngineNo(data.engine_number);
+        setVehicleType(data.vehicle_type);
+        setColor(data.color);
+        setLicenseExpireDate(data.license_expiry_date);
+      } else {
+        handlefail1();
+      }
+    } catch (error) {
+      handlefail2();
+    }
+  };
+
+
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -59,7 +108,10 @@ const VehicleDetails = ({ navigation }) => {
         <View style={styles.container3}>
           <Text style={styles.text1}>VEHICLE NO</Text>
 
-          <InputTextCurve style={styles.input} />
+          <InputTextCurve
+            style={styles.input}
+            onChangeText={(input) => setInput(input)}
+          />
         </View>
 
         {/* Submit Button */}
@@ -75,6 +127,16 @@ const VehicleDetails = ({ navigation }) => {
         <View style={styles.container2}>
           <Table data={tableData} />
         </View>
+        <ModalTester
+          set={Fail1}
+          messagetodisplay="Vehicle number is not Valid"
+          backgroundColor="red"
+        />
+        <ModalTester
+          set={Fail2}
+          messagetodisplay="Network Error"
+          backgroundColor="red"
+        />
 
         <Footer />
       </View>

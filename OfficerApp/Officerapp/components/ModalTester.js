@@ -18,6 +18,9 @@ function ModalTester(props) {
   useEffect(() => {
     if (set === true) {
       toggleModal(); // Open or close the modal based on the 'set' prop
+      setTimeout(() => {
+        toggleModal();
+      }, 500);
     }
   }, [set]);
 

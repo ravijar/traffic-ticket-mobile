@@ -17,6 +17,10 @@ const Welcome = () => {
     };
   }, [navigation]);
 
+  
+
+  
+  
   return (
     <View style={styles.container}>
       {/* Application Logo */}

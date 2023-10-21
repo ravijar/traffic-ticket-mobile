@@ -3,7 +3,7 @@ import { View, Text, ScrollView, StyleSheet } from "react-native";
 
 const ScrollBox = (props) => {
   // Extract the 'messages' array from props
-  const messages = props.messages;
+  const messages = props.messages.slice().reverse();
 
   return (
     <View style={styles.container}>

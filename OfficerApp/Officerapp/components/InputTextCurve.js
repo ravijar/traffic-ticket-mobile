@@ -21,6 +21,7 @@ const InputTextCurve = (props) => {
   };
 
   return (
+    
     <TextInput
       style={styles}
       placeholder={placeholder}

@@ -24,6 +24,7 @@ const Login = ({ navigation }) => {
   const [CredentialError, setCredentialError] = useState("");
   const [showErrors, setShowErrors] = useState(false);
 
+
   useEffect(() => {
     // Add event listeners to detect keyboard visibility
     const keyboardDidShowListener = Keyboard.addListener(
@@ -57,7 +58,7 @@ const Login = ({ navigation }) => {
         body: JSON.stringify({
           username: userId,
           password: password,
-        }),
+        })
       });
 
       if (response.ok) {

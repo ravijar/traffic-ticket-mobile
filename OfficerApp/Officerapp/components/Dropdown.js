@@ -2,23 +2,17 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import SelectDropdown from "react-native-select-dropdown";
 
-const Dropdown = ({ onSelect }) => {
-  // Define the Violation type for the dropdown component
-  const Violation = [
-    "Speeding",
-    "Red Light",
-    "Stop Sign",
-    "Lane Cross",
-    "Other",
-  ];
-
+const Dropdown = ({ onSelect, dropdownlist, defaultButtonText }) => {
+  
+  const dropdownL = dropdownlist;
+  const ButtonText = defaultButtonText;
   return (
 
     <View style={styles.container}>
       {/* Render the SelectDropdown component */}
 
       <SelectDropdown
-        data={Violation} // Provide the data (options) for the dropdown
+        data={dropdownL} // Provide the data (options) for the dropdown
         onSelect={onSelect} // Specify the function to handle item selection
         buttonTextAfterSelection={(selectedItem, index) => {
           return selectedItem; // Customize the button text after selection
@@ -28,7 +22,7 @@ const Dropdown = ({ onSelect }) => {
         }}
         dropdownStyle={styles.dropdownStyle} // Apply styles to the dropdown container
         buttonStyle={styles.dropdownButton} // Apply styles to the dropdown button
-        defaultButtonText="Violation Type" // Set the default button text
+        defaultButtonText = {ButtonText} // Set the default button text
       />
     </View>
   );

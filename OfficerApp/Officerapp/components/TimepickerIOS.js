@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const TimepickerIOS = ({ setSelectedTime }) => {
 
-  // Same as DatepickerIOS, but for time
+  // Same as DatepickerIOS, but for 
   const [date, setDate] = useState(new Date(1693506600000));
   const mode = "time";
   const show = true;
