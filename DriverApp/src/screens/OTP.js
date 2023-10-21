@@ -22,22 +22,24 @@ import { GluestackUIProvider, config } from "@gluestack-ui/themed";
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 
-const ForgotPassword = ({ navigation }) => {
-  const [nic, setNIC] = useState("");
+const ForgotPassword = ({ route, navigation }) => {
+  const { nic } = route.params;
+  const [OTP, setOTP] = useState("");
 
   const onSubmit = () => {
     return new Promise((resolve, reject) => {
       axios
-        .post(`${API_URL}/api/users/send_otp/`, {
+        .post(`${API_URL}/api/users/verify_otp/`, {
           nic,
+          entered_otp: OTP,
         })
 
         .then(() => {
-          alert("OTP sent to your email");
-          navigation.navigate("OTP", { nic });
+          navigation.navigate("ForgotUpdate", { nic });
+          alert("OTP verified successfully");
         })
         .catch((error) => {
-          alert("Invalid NIC");
+          alert("Invalid OTP");
         });
     });
   };
@@ -70,7 +72,7 @@ const ForgotPassword = ({ navigation }) => {
                   alignSelf: "center",
                 }}
               >
-                Enter NIC:
+                Enter OTP:
               </Text>
               <Input //input field for NIC number
                 style={styles.input}
@@ -81,9 +83,9 @@ const ForgotPassword = ({ navigation }) => {
                 isReadOnly={false}
               >
                 <InputField
-                  placeholder="Enter NIC"
-                  value={nic}
-                  onChangeText={(text) => setNIC(text)}
+                  placeholder="Enter OTP"
+                  value={OTP}
+                  onChangeText={(text) => setOTP(text)}
                 />
               </Input>
             </View>
@@ -105,7 +107,7 @@ const ForgotPassword = ({ navigation }) => {
                 // onPress={() => navigation.navigate("Login")}
                 onPress={onSubmit}
               >
-                <ButtonText>Send Email </ButtonText>
+                <ButtonText>Verify </ButtonText>
               </Button>
 
               <Link //link to sign in page

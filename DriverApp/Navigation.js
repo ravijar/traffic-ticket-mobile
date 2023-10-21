@@ -11,6 +11,8 @@ import {
   PendingFines,
   Suggestions,
   Register,
+  OTP,
+  ForgotUpdate,
 } from "./src/screens";
 import { Text } from "react-native";
 import { TouchableOpacity } from "react-native";
@@ -118,6 +120,16 @@ const Navigation = ({ isSignedIn, setSignedIn }) => {
           <Stack.Screen
             name="Register"
             component={Register}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="OTP"
+            component={OTP}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ForgotUpdate"
+            component={ForgotUpdate}
             options={{ headerShown: false }}
           />
 

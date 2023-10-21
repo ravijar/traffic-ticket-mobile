@@ -89,7 +89,7 @@ const RegisterBox = ({ navigation }) => {
         enablePanDownToClose
         onChange={handleSheetChanges}
       > */}
-      <View>
+      <View style={{ marginTop: "5%" }}>
         <Text style={styles.formText}>First Name</Text>
         <Input
           style={styles.input2}
