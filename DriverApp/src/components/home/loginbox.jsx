@@ -12,6 +12,8 @@ import React, { useState } from "react";
 import { onLogin } from "../../apis/auth";
 import { setSignedIn, setUserNIC } from "../../redux/auth/actions";
 import { connect } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwt_decode from "jwt-decode";
 
 const Loginbox = ({ navigation, setSignedIn, setUserNIC }) => {
   const [nic, setNic] = useState("200023003421");
@@ -20,9 +22,17 @@ const Loginbox = ({ navigation, setSignedIn, setUserNIC }) => {
   const onSubmit = () => {
     onLogin(nic, password)
       .then(async (res) => {
-        await setSignedIn(true);
-        setUserNIC(nic);
-        navigation.navigate("Dashboard");
+        const token = await AsyncStorage.getItem("accessToken");
+        const decoded = await jwt_decode(token).role;
+        // console.log(decoded);
+
+        if (decoded === "driver") {
+          await setSignedIn(true);
+          setUserNIC(nic);
+          navigation.navigate("Dashboard");
+        } else {
+          alert("Unauthorized access");
+        }
       })
       .catch((err) => {
         alert("Invalid Login Credentials");
