@@ -4,6 +4,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import COLORS from "../constants/colors";
@@ -12,13 +14,10 @@ import Header from "../components/Header";
 import Footer from "../components/Fotter";
 import InputTextCurve from "../components/InputTextCurve";
 import Table from "../components/Table";
-import ModalTester from "../components/ModalTester";
 import { API_URL } from "../constants/url";
 
 const VehicleDetails = ({ navigation }) => {
-
-  const [Fail1, setFail1] = useState(false);
-  const [Fail2, setFail2] = useState(false);
+  
   const [input, setInput] = useState(""); // State to store the vehicle number entered by the user
   const [vehicleNo, setVehicleNo] = useState("None");
   const [ownerName, setOwnerName] = useState("None");
@@ -49,21 +48,6 @@ const VehicleDetails = ({ navigation }) => {
     setLicenseExpireDate("None");
   };
 
-  const handlefail1 = () => {
-    settabletoempty();
-    setFail1(true);
-    setTimeout(() => {
-      setFail1(false); // Set the button press state to false after 10 milisecond
-    }, 10);
-  };
-  const handlefail2 = () => {
-    settabletoempty();
-    setFail2(true);
-    setTimeout(() => {
-      setFail2(false); // Set the button press state to false after 10 milisecond
-    }, 10);
-  };
-
   // Function to handle form submission
   const handleSubmit = async () => {
     const trimmedInput = input.trim();
@@ -75,7 +59,6 @@ const VehicleDetails = ({ navigation }) => {
           "Content-Type": "application/json",
         },
       });
-
       if (response.status === 200) {
         const data = await response.json(); // Parse the JSON response
         setVehicleNo(data.vehicle_number);
@@ -86,14 +69,12 @@ const VehicleDetails = ({ navigation }) => {
         setColor(data.color);
         setLicenseExpireDate(data.license_expiry_date);
       } else {
-        handlefail1();
+        alert("Error");
       }
     } catch (error) {
-      handlefail2();
+      alert("Network Error");
     }
   };
-
-
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -115,30 +96,40 @@ const VehicleDetails = ({ navigation }) => {
         </View>
 
         {/* Submit Button */}
-        <Button
-          title="SUBMIT"
-          filled
-          fontSize={10}
-          style={{ width: "20%", maxWidth: 120, marginTop: "6%" }}
-          onPress={handleSubmit}
-        />
-
-        {/* Table to display vehicle details */}
-        <View style={styles.container2}>
-          <Table data={tableData} />
+        <View style={{ alignItems: "center", marginBottom: 10 }}>
+          <Button
+            title="SUBMIT"
+            filled
+            fontSize={10}
+            style={{ width: "20%", maxWidth: 120, marginTop: "6%" }}
+            onPress={handleSubmit}
+          />
         </View>
-        <ModalTester
-          set={Fail1}
-          messagetodisplay="Vehicle number is not Valid"
-          backgroundColor="red"
-        />
-        <ModalTester
-          set={Fail2}
-          messagetodisplay="Network Error"
-          backgroundColor="red"
-        />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
+          style={{ flex: 1 }}
+        >
+          <ScrollView
+            style={styles.container2}
+            contentContainerStyle={{
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            bounces={false}
+          >
+            {/* Table to display vehicle details */}
+            <Table data={tableData} />
+          </ScrollView>
+        </KeyboardAvoidingView>
 
-        <Footer />
+
+        {Platform.OS === "ios" && (
+          <View style={{ alignItems: "center" }}>
+            <Footer />
+          </View>
+        )}
+
       </View>
     </TouchableWithoutFeedback>
   );
@@ -148,7 +139,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
-    alignItems: "center",
   },
   container3: {
     flex: 1,
@@ -158,21 +148,19 @@ const styles = StyleSheet.create({
     maxWidth: 500,
     maxHeight: 90,
     backgroundColor: "gray",
-    justifyContent: "center", // Vertically center conten
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center",
     marginTop: "8%",
     borderRadius: 50,
     marginBottom: "5%",
+    marginLeft: "8%",
   },
   container2: {
-    flex: 1,
-    width: "85%",
+    width: "100%",
     backgroundColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: "8%",
-    marginBottom: "12%",
+    height: "60%",
   },
+
   input: {
     width: "60%",
     height: "40%",

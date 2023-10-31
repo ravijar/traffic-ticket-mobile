@@ -24,7 +24,7 @@ const Welcome = () => {
   return (
     <View style={styles.container}>
       {/* Application Logo */}
-      <Image source={require("../assets/logo2.png")} style={styles.image} />
+      <Image source={require("../assets/logo.png")} style={styles.image} />
 
       {/*Application's title */}
       <Text style={styles.text}>Officer Portal</Text>

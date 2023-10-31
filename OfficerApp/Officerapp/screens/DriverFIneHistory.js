@@ -4,6 +4,7 @@ import {
   ScrollView,
   Keyboard,
   TouchableWithoutFeedback,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useState } from "react";
 import { StyleSheet, Image } from "react-native";
@@ -13,28 +14,10 @@ import Header from "../components/Header";
 import Footer from "../components/Fotter";
 import InputTextCurve from "../components/InputTextCurve";
 import Table2 from "../components/Table2";
-import ModalTester from "../components/ModalTester";
 import { API_URL } from "../constants/url";
 const DriverFineHistory = ({ navigation }) => {
   const [input, setInput] = useState(""); // State to store the vehicle number entered by the user
-  const [Fail1, setFail1] = useState(false);
-  const [Fail2, setFail2] = useState(false);
   const [tabledata, setTabledata] = useState([]); // State to store the vehicle number entered by the user
-
-  const handlefail1 = () => {
-    setTabledata([]); // State to store the vehicle number entered by the user
-    setFail1(true);
-    setTimeout(() => {
-      setFail1(false); // Set the button press state to false after 10 milisecond
-    }, 10);
-  };
-  const handlefail2 = () => {
-    setTabledata([]); // State to store the vehicle number entered by the user
-    setFail2(true);
-    setTimeout(() => {
-      setFail2(false); // Set the button press state to false after 10 milisecond
-    }, 10);
-  };
 
   const handleSubmit = async () => {
     const trimmedInput = input.trim();
@@ -58,32 +41,33 @@ const DriverFineHistory = ({ navigation }) => {
         ]);
         setTabledata(transformedData);
       } else {
-        handlefail1();
+        alert("Vehicle number is not Valid");
+        setTabledata([]); // State to store the vehicle number entered by the user
       }
     } catch (error) {
-      handlefail2();
-      console.error("Failed to fetch vehicle details.", error);
+      alert("Network Error");
+      setTabledata([]); // State to store the vehicle number entered by the user
     }
   };
 
   return (
-    <View style={styles.container}>
-      <Header
-        navigation={navigation}
-        Headername="FINE HISTORY"
-        back="DashBoard"
-      />
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container2}>
-          <View style={styles.container3}>
-            <Text style={styles.text1}>DRIVER NIC</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+      <View style={styles.container}>
+        <Header
+          navigation={navigation}
+          Headername="FINE HISTORY"
+          back="DashBoard"
+        />
+        <View style={styles.container3}>
+          <Text style={styles.text1}>DRIVER NIC</Text>
 
-            <InputTextCurve
-              style={styles.input}
-              onChangeText={(input) => setInput(input)}
-            />
-          </View>
+          <InputTextCurve
+            style={styles.input}
+            onChangeText={(input) => setInput(input)}
+          />
+        </View>
 
+        <View style={{ alignItems: "center", marginBottom: 10 }}>
           <Button
             title="SUBMIT"
             filled
@@ -92,26 +76,30 @@ const DriverFineHistory = ({ navigation }) => {
             onPress={handleSubmit}
           />
         </View>
-      </TouchableWithoutFeedback>
-      {/* <ScrollView contentContainerStyle={styles.scrollContainer}> */}
-      <View style={styles.container4}>
-        <Table2 data={tabledata} />
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : null}
+          style={{ flex: 1 }}
+        >
+          <ScrollView
+            style={styles.container2}
+            contentContainerStyle={{
+              flexGrow: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            bounces={false}
+          >
+            <Table2 data={tabledata} />
+          </ScrollView>
+        </KeyboardAvoidingView>
+
+        {Platform.OS === "ios" && (
+          <View style={{ alignItems: "center" }}>
+            <Footer />
+          </View>
+        )}
       </View>
-      {/* </ScrollView> */}
-
-      <ModalTester
-        set={Fail1}
-        messagetodisplay="Vehicle number is not Valid"
-        backgroundColor="red"
-      />
-      <ModalTester
-        set={Fail2}
-        messagetodisplay="Network Error"
-        backgroundColor="red"
-      />
-
-      <Footer />
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -119,13 +107,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLORS.WHITE,
-    alignItems: "center",
   },
   container2: {
-    flex: 1,
     width: "100%",
     backgroundColor: "transparent",
-    alignItems: "center",
+    height: "60%",
   },
 
   container3: {
@@ -136,21 +122,12 @@ const styles = StyleSheet.create({
     maxWidth: 500,
     maxHeight: 90,
     backgroundColor: "gray",
-    justifyContent: "center", // Vertically center conten
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center", 
     marginTop: "8%",
     borderRadius: 50,
     marginBottom: "5%",
-  },
-
-  container4: {
-    flex: 2,
-    width: "90%",
-    backgroundColor: "transparent",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: "12%",
-    marginTop: "8%",
+    marginLeft: "8%",
   },
 
   input: {
@@ -165,10 +142,7 @@ const styles = StyleSheet.create({
     color: "black",
     marginRight: 10,
   },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: "center",
-  },
+
 });
 
 export default DriverFineHistory;

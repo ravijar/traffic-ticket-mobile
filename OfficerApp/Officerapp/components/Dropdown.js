@@ -31,9 +31,9 @@ const Dropdown = ({ onSelect, dropdownlist, defaultButtonText }) => {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
-    marginTop: 20,
     flex: 1,
-    marginBottom: 50,
+    marginTop: 10,
+    marginBottom: 10,
   },
   dropdownStyle: {
     backgroundColor: "#fafafa",

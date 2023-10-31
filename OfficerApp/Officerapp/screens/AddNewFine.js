@@ -2,8 +2,8 @@ import {
   View,
   StyleSheet,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
+  KeyboardAvoidingView,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import COLORS from "../constants/colors";
@@ -16,12 +16,11 @@ import Header from "../components/Header";
 import Footer from "../components/Fotter";
 import DatepickerAn from "../components/DatepickerAn";
 import TimepickerAn from "../components/TimepickerAn";
-import ImagePick from "../components/Imagepick";
 import TextArea from "../components/TextArea";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { API_URL } from "../constants/url";
 
 const AddNewFine = ({ navigation }) => {
-  // State variables to capture user 
+  // State variables to capture user
   const [vehicleNo, setVehicleNo] = useState("");
   const [nicNo, setNicNo] = useState("");
   const [place, setPlace] = useState("");
@@ -30,7 +29,15 @@ const AddNewFine = ({ navigation }) => {
   const [selectedTime, setSelectedTime] = useState(""); // State to store the selected time
   const [description, setDescription] = useState(""); // State to store the description of the violation
 
-  const sendData = [vehicleNo, nicNo, place, type, selectedDate, selectedTime, description]
+  const sendData = [
+    vehicleNo,
+    nicNo,
+    place,
+    type,
+    selectedDate,
+    selectedTime,
+    description,
+  ];
 
   // Array to store collected data in a tabular format
   const tableData = [
@@ -41,14 +48,39 @@ const AddNewFine = ({ navigation }) => {
     { column1: "Date", column2: selectedDate },
     { column1: "Time", column2: selectedTime },
   ];
-  
 
-  const handleConfirm = () => {
-    //navigate to OTPscreen and pass the input values as route params
+
+  const handleConfirm = async () => {
     navigation.navigate("OTPscreen", {
       tableData, // Pass the tableData to OTPscreen
-      sendData
+      sendData,
     });
+    try {
+      const response = await fetch(`${API_URL}api/send_otp/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nic: nicNo,
+        }),
+      });
+
+      if (response.status === 200) {
+        navigation.navigate("OTPscreen", {
+          tableData, // Pass the tableData to OTPscreen
+          sendData,
+        });
+      } else {
+        console.log(response.status);
+        // handlefail1();
+        alert("Error");
+      }
+    } catch (error) {
+      // handlefail2();
+      console.log(error);
+      alert("Network Error");
+    }
   };
 
   // Function to handle the selection of a violation type from the dropdown
@@ -61,14 +93,13 @@ const AddNewFine = ({ navigation }) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={styles.container}>
-        <Header
-          navigation={navigation}
-          Headername="ADD NEW FINE"
-          back="DashBoard"
-        />
-
+    <View style={styles.container}>
+      <Header
+        navigation={navigation}
+        Headername="ADD NEW FINE"
+        back="DashBoard"
+      />
+      <View style={{ alignItems: "center" }}>
         <Button
           title="Request OTP"
           filled
@@ -79,14 +110,21 @@ const AddNewFine = ({ navigation }) => {
           fontSize={12}
           style={{ marginTop: 30, width: 100, fontSize: 30 }}
         />
+      </View>
+      {/* ScrollView for handling keyboard interactions */}
 
-        {/* ScrollView for handling keyboard interactions */}
-        <KeyboardAwareScrollView
-          style={styles.keyboardAwareContainer}
-          contentContainerStyle={styles.scrollContainer} // Apply styles to the inner content
-          enableOnAndroid={true} // Enable on Android
-          extraScrollHeight={50} // Add extra scroll height when keyboard appears (customize as needed)
-          keyboardShouldPersistTaps="handled" // Allow tapping to dismiss the keyboard
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : null}
+        style={{ flex: 1 }}
+      >
+        <ScrollView
+          style={styles.container1}
+          contentContainerStyle={{
+            flexGrow: 1,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          bounces={false}
         >
           <View style={styles.container2}>
             <InputTextCurve
@@ -96,21 +134,34 @@ const AddNewFine = ({ navigation }) => {
             />
 
             <InputTextCurve
-              style={styles.input}
+              style={styles.input2}
               placeholder="Driver's NIC Number"
               onChangeText={(text) => setNicNo(text)}
             />
 
-            
-            <Dropdown onSelect={handlePlaceSelection}
-            dropdownlist={["Katubedda", "Rawathawaththa", "Moratuwa", "Molpe", "Other"]}
-            defaultButtonText={"Select Place"}
+            <Dropdown
+              onSelect={handlePlaceSelection}
+              dropdownlist={[
+                "Katubedda",
+                "Rawathawaththa",
+                "Moratuwa",
+                "Molpe",
+                "Other",
+              ]}
+              defaultButtonText={"Select Place"}
             />
 
             {/* Dropdown for selecting violation type */}
-            <Dropdown onSelect={handleViolationSelection}
-            dropdownlist={["Speeding", "Red Light", "Stop Sign", "Lane Cross", "Other"]}
-            defaultButtonText={"Select Violation"}
+            <Dropdown
+              onSelect={handleViolationSelection}
+              dropdownlist={[
+                "Red Light",
+                "High Speed",
+                "Stop Sign",
+                "Lane Cross",
+                "Other",
+              ]}
+              defaultButtonText={"Select Violation"}
             />
 
             <></>
@@ -134,31 +185,31 @@ const AddNewFine = ({ navigation }) => {
               </>
             )}
 
-            <TextArea 
-            onChangeText={(text) => setDescription(text)}
-            />
+            <TextArea onChangeText={(text) => setDescription(text)} />
 
             {/* <ImagePick /> */}
             {/* Image picker disable in this version */}
-
           </View>
-
-        </KeyboardAwareScrollView>
-
-        <Footer />
-
-      </View>
-
-    </TouchableWithoutFeedback>
-
+        </ScrollView>
+      </KeyboardAvoidingView>
+      {Platform.OS === "ios" && (
+        <View style={{ alignItems: "center" }}>
+          <Footer />
+        </View>
+      )}
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.WHITE,
-    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  container1: {
+    width: "100%",
+    backgroundColor: "transparent",
+    height: "60%",
   },
 
   container2: {
@@ -169,20 +220,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingBottom: 10,
   },
-  scrollContainer: {
-    flex: 1, // Make the ScrollView take up all available space
-    width: "100%",
-    alignItems: "center", // Center horizontally
-  },
-
-  keyboardAvoidingContainer: {
-    flex: 1, // Ensure KeyboardAvoidingView takes up all available space
-    width: "100%",
-  },
-  keyboardAwareContainer: {
-    flex: 1, // Ensure KeyboardAwareScrollView takes up all available space
-    width: "100%",
-  },
 
   input: {
     width: "80%",
@@ -191,6 +228,15 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingHorizontal: 10,
     marginTop: 20,
+  },
+  input2: {
+    width: "80%",
+    height: 40,
+    backgroundColor: "white",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    marginTop: 20,
+    marginBottom: 10,
   },
 });
 

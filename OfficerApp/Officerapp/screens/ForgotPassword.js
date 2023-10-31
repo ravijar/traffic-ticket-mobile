@@ -34,7 +34,7 @@ const ForgotPassword = ({ navigation }) => {
 
         {/* Logo */}
         <View style={styles.container2}>
-          <Image source={require("../assets/logo2.png")} style={styles.image} />
+          <Image source={require("../assets/logo.png")} style={styles.image} />
         </View>
 
         {/* User ID Input */}
@@ -47,9 +47,9 @@ const ForgotPassword = ({ navigation }) => {
         </View>
 
         {/* Information Text */}
-        <View style={styles.container3}>
+        {/* <View style={styles.container3}>
           <Text style={styles.text3}>This Process May Take Some Time...</Text>
-        </View>
+        </View> */}
 
         {/* Request Button */}
         <View style={styles.container5}>

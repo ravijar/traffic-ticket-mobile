@@ -10,6 +10,7 @@ import { StyleSheet, Image, ScrollView, Platform } from "react-native";
 import COLORS from "../constants/colors";
 import Button from "../components/Button";
 import InputTextCurve from "../components/InputTextCurve";
+import { API_URL } from "../constants/url";
 // Get screen dimensions
 const { width, height } = Dimensions.get("screen");
 
@@ -18,7 +19,10 @@ const { width, height } = Dimensions.get("screen");
 const ChangePassword = ({ navigation }) => {
   // State variable to track keyboard visibility
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
-
+  const [userId, setUserId] = useState(""); // State to store user ID
+  const [cpassword, setCPassword] = useState(""); // State to store current password
+  const [npassword, setNPassword] = useState(""); // State to store new password
+  const [cnpassword, setCNPassword] = useState(""); // State to store confirm new password
   // useEffect to handle keyboard visibility
   useEffect(() => {
     // Listener for when the keyboard is shown
@@ -43,6 +47,39 @@ const ChangePassword = ({ navigation }) => {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  const handleChangePassword = async () => {
+    if (npassword != cnpassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    try {
+      // Make a network request to authenticate the user
+      const response = await fetch(`${API_URL}/api/users/change_password/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nic: userId,
+          old_password: cpassword,
+          new_password: npassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.status == 200) {
+        alert("Password changed successfully");
+        navigation.navigate("Login");
+      } else {
+        alert("Invalid credentials");
+      }
+    } catch (error) {
+      alert("Network Error");
+    }
+
+  };
 
   return (
     <View
@@ -71,24 +108,31 @@ const ChangePassword = ({ navigation }) => {
           bounces={false}
         >
           <View style={[styles.container4]}>
-            <InputTextCurve style={styles.input} placeholder="User ID" />
+            <InputTextCurve 
+            style={styles.input} 
+            placeholder="User ID" 
+            onChangeText={(text) => setUserId(text)}
+            />
 
             <InputTextCurve
               style={styles.input}
               placeholder="Current Password"
               secureTextEntry
+              onChangeText={(text) => setCPassword(text)}
             />
 
             <InputTextCurve
               style={styles.input}
               placeholder="New Password"
               secureTextEntry
+              onChangeText={(text) => setNPassword(text)}
             />
 
             <InputTextCurve
               style={styles.input}
               placeholder="Confirm New Password"
               secureTextEntry
+              onChangeText={(text) => setCNPassword(text)}
             />
 
             <View style={{ flexDirection: "row" }}>
@@ -109,6 +153,7 @@ const ChangePassword = ({ navigation }) => {
               <Button
                 title="Change"
                 filled
+                onPress = {handleChangePassword}
                 fontSize={12}
                 style={{
                   marginTop: 20,

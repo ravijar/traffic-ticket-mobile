@@ -13,8 +13,10 @@ import ScrollBox from "../components/ScrollBox";
 import TextArea from "../components/TextArea";
 import ModalTester from "../components/ModalTester";
 import { API_URL } from "../constants/url";
+import { useSelector } from "react-redux"; // Import useSelector
 
 const Message = ({ navigation }) => {
+  const userId = useSelector((state) => state.auth.userId); // Access userId from Redux state
   const [sendMsg, setSendMsg] = useState(""); // State to store the message entered by the user
   const [Success, setSuccess] = useState(false);
   const [Fail, setFail] = useState(false);
@@ -44,15 +46,15 @@ const Message = ({ navigation }) => {
   // Fetch messages when the component mounts
   useEffect(() => {
     fetchMessages().then((data) => {
-      const bodies = data.results.map((message) => message.body);
-      const senders = data.results.map((message) => message.sender_nic);
-      const messages2 = bodies.map((body, index) => ({
-        sender: senders[index],
-        text: body,
+      const messageData = data.map((message) => ({
+        sender: `${message.sender_id || "N/A"}  :  ${
+          message.police_station || "N/A"
+        }`,
+        text: message.message_body,
         backgroundColor: "gray",
       }));
 
-      setMessages(messages2);
+      setMessages(messageData);
       setIsLoading(false); // Data is loaded, update isLoading
     });
   }, [sender]);
@@ -60,8 +62,8 @@ const Message = ({ navigation }) => {
   // State variables for success and fail modals
 
   // Simulated API response
-  const NIC = "123456789V";
-  // Function to handle the SEND button press
+  const NIC = userId|| " ";
+
   const handlebutton = async () => {
     try {
       const response = await fetch(`${API_URL}api/messages/`, {
@@ -75,29 +77,15 @@ const Message = ({ navigation }) => {
         }),
       });
       if (response.status === 201) {
-        handlesuccess();
         setSender(!sender);
+        alert("Message sent successfully");
       } else {
-        handlefail();
+        alert("Message sending failed");
+        
       }
     } catch (error) {
-      handlefail();
+      alert("Network error");
     }
-  };
-
-  // Function to show the success modal
-  const handlesuccess = () => {
-    setSuccess(true);
-    setTimeout(() => {
-      setSuccess(false); // Set the button press state to false after 10 milisecond
-    }, 10);
-  };
-
-  const handlefail = () => {
-    setFail(true);
-    setTimeout(() => {
-      setFail(false); // Set the button press state to false after 10 milisecond
-    }, 10);
   };
 
   return (

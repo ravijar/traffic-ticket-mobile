@@ -13,10 +13,14 @@ import { StyleSheet, Image } from "react-native";
 import COLORS from "../constants/colors";
 import Button from "../components/Button";
 import InputTextCurve from "../components/InputTextCurve";
+import { API_URL } from "../constants/url";
+import {setSignedIn, setUserID} from "../redux/auth/actions";
+import { connect } from "react-redux";
+import jwt_decode from "jwt-decode";
 
 const { width, height } = Dimensions.get("screen");
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation , setUserID, setSignedIn , isSignedIn}) => {
   // state variables
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [userId, setUserId] = useState(""); // State to store user ID
@@ -50,7 +54,7 @@ const Login = ({ navigation }) => {
   const handleSignIn = async () => {
     try {
       // Make a network request to authenticate the user
-      const response = await fetch("http://127.0.0.1:8000/api/token/", {
+      const response = await fetch(`${API_URL}/api/token/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,8 +66,23 @@ const Login = ({ navigation }) => {
       });
 
       if (response.ok) {
+        await setUserID(userId);
+        await setSignedIn(true);
+        const data = await response.json();
+        const access = data.access;
+        const decoded = await jwt_decode(access).role;
+        
+        if (decoded === "officer") {
+          navigation.navigate("DashBoard");
+        } else  {
+          setShowErrors(true);
+          setCredentialError("Incorrect Credentials");
+          setTimeout(() => {
+            setShowErrors(false);
+          }, 2000);
+        }        
+        
         // Authentication successful, navigate to the dashboard
-        navigation.navigate("DashBoard");
       } else {
         // Authentication failed, set an error message
         setShowErrors(true);
@@ -150,8 +169,8 @@ const Login = ({ navigation }) => {
             <Button
               title="Sign In"
               filled
-              // onPress={handleSignIn}
-              onPress={() => navigation.navigate("DashBoard")}
+              onPress={handleSignIn}
+              // onPress={() => navigation.navigate("DashBoard")}
               fontSize={12}
               style={{
                 width: "40%",
@@ -207,24 +226,24 @@ const styles = StyleSheet.create({
   container1: {
     flex: 2,
     backgroundColor: "transparent",
-    justifyContent: "center", // Vertically center content
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center", 
   },
 
   container2: {
     flex: 3,
     borderRadius: 30,
     backgroundColor: "transparent",
-    justifyContent: "center", // Vertically center content
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center", 
   },
 
   container3: {
     flex: 1,
     borderRadius: 30,
     backgroundColor: "transparent",
-    justifyContent: "center", // Vertically center content
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center", 
   },
 
   container4: {
@@ -232,8 +251,8 @@ const styles = StyleSheet.create({
     maxWidth: 450,
     borderRadius: 30,
     backgroundColor: "gray",
-    justifyContent: "center", // Vertically center content
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center", 
     marginTop: height * 0.01,
   },
   container5: {
@@ -243,8 +262,8 @@ const styles = StyleSheet.create({
     maxWidth: 450,
     borderRadius: 30,
     backgroundColor: "green",
-    justifyContent: "center", // Vertically center content
-    alignItems: "center", // Horizontally center content
+    justifyContent: "center", 
+    alignItems: "center", 
     marginTop: height * 0.03,
     marginBottom: height * 0.06,
   },
@@ -282,4 +301,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = (state) => ({
+  isSignedIn: state.auth.isSignedIn,
+  userId: state.auth.userId,
+});
+
+const mapDispatchToProps = {
+  setSignedIn,
+  setUserID,
+};
+
+// export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
