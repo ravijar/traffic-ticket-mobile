@@ -46,10 +46,7 @@ const ForgotPassword = ({ navigation }) => {
           />
         </View>
 
-        {/* Information Text */}
-        {/* <View style={styles.container3}>
-          <Text style={styles.text3}>This Process May Take Some Time...</Text>
-        </View> */}
+        
 
         {/* Request Button */}
         <View style={styles.container5}>
