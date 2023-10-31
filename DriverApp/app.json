@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "name": "DriverApp",
+    "slug": "trafficticketdriverapp",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "850dc61a-3fa5-40b7-93c4-8bbc025f9348"
+      }
+    },
+    "owner": "trafficticket",
+    "android": {
+      "package": "com.trafficticket.driverapp"
+    }
+  }
+}
